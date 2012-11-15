@@ -1,0 +1,49 @@
+% proposal.tex | CS 6260 - "Vendetta" Proposal
+
+% setup
+\documentclass[9pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{listings}
+\usepackage{array}
+\usepackage{minted}
+\usepackage{graphicx}
+\usepackage{parskip}
+
+% don't number sections
+\setcounter{secnumdepth}{0}
+
+% don't highlight links
+\hypersetup{hidelinks}
+
+% custom commands
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{TODO:} \emph{#1}}}
+\newcommand{\term}[1]{\textit{#1}}
+\newcommand{\bterm}[1]{\textbf{\textit{#1}}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\super}[1]{\textsuperscript{#1}}
+\newcommand{\sub}[1]{\textsubscript{#1}}
+
+% title
+\title{``Vendetta'': End-to-end auditable voting}
+\date{}
+\author{Kelsey Francis, Curtis Free, Christopher Martin}
+
+% document
+\begin{document}
+	\maketitle
+
+	\todo{Write the proposal.}
+	\cite{dummy}
+
+	\bibliography{sources}{}
+	\bibliographystyle{plain}
+\end{document}
+
+% vim: set colorcolumn=101 cursorcolumn cursorline:
+
