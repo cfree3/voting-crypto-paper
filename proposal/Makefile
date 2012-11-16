@@ -2,14 +2,12 @@
 
 MAIN=proposal
 BIB=sources
+LATEX=pdflatex -file-line-error -halt-on-error
 
-pdfonly: $(MAIN).tex $(BIB).bib
-	pdflatex $(MAIN) && bibtex $(MAIN) && pdflatex $(MAIN) && pdflatex $(MAIN)
+$(MAIN).pdf: $(MAIN).tex $(BIB).bib
+	$(LATEX) $(MAIN) && bibtex $(MAIN) && $(LATEX) $(MAIN) && $(LATEX) $(MAIN)
 
-pdfview: $(MAIN).tex $(BIB).bib
-	pdflatex $(MAIN) && bibtex $(MAIN) && pdflatex $(MAIN) && pdflatex $(MAIN) && open $(MAIN).pdf
-
-view: $(MAIN).pdf
+open: $(MAIN).pdf
 	open $(MAIN).pdf
 
 clean:
@@ -21,4 +19,3 @@ edit:
 live:
 	latexmk -pdf -pvc $(MAIN) &>/dev/null &
 	$(EDITOR) $(MAIN).tex $(BIB).bib
-
