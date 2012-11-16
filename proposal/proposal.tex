@@ -1,7 +1,7 @@
 % proposal.tex | CS 6260 - "Vendetta" Proposal
 
 % setup
-\documentclass[twocolumn]{article}
+\documentclass[10pt]{article}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{fullpage}
@@ -13,6 +13,7 @@
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{parskip}
+\usepackage{multicol}
 
 % don't number sections
 \setcounter{secnumdepth}{0}
@@ -37,47 +38,55 @@
 \begin{document}
 	\maketitle
 
-	\section{Background}
+	\begin{abstract}
+		\todo{Write the abstact.}
+	\end{abstract}
 
-		A democratic voting system like that in the United States raises several questions to which
-		cryptography can potentially provide answers. Namely, the question at hand is \emph{how to keep
-		voting fair}. In particular, we want to consider the following questions:
-		\begin{itemize}
+	\begin{multicols}{2}
 
-			\item
-				How can a government prove to a voter that his/her vote \emph{was} counted (correctly),
-				without being able to reveal the candidate for which the ballot was cast?
+		\section{Background}
 
-			\item
-				How can an observer verify that the votes reported by a state contain no forged votes (i.e.,
-				that the state is not cheating by introducing votes not actually cast)?
+			A democratic voting system like that in the United States raises several questions to which
+			cryptography can potentially provide answers. Namely, the question at hand is \emph{how to keep
+			voting fair}. In particular, we want to consider the following questions:
+			\begin{itemize}
 
-		\end{itemize}
-		Cryptographic systems designed to meet exactly these goals are called \term{end-to-end auditable
-		voting systems}\cite{end_to_end}.
+				\item
+					How can a government prove to a voter that his/her vote \emph{was} counted (correctly),
+					without being able to reveal the candidate for which the ballot was cast?
 
-		A wealth of research has been done in this area, and a number of such systems have been devised.
-		Most of these systems have been developed by academia. However, countries such as Estonia and
-		even the United States have developed systems for voting via the Internet
-		\cite{estonia,us_vs_est} -- and while that is only tangential to the questions posed above, it
-		can be instructive to see how (if at all) these systems meet those goals.
+				\item
+					How can an observer verify that the votes reported by a state contain no forged votes (i.e.,
+					that the state is not cheating by introducing votes not actually cast)?
 
-	\section{Proposal}
+			\end{itemize}
+			Cryptographic systems designed to meet exactly these goals are called \term{end-to-end auditable
+			voting systems}\cite{end_to_end}.
 
-		We plan to begin with a more precise quantification of the security goals that we believe must
-		be met for a voting system (whether physical or digital) in order to accomplish the higher-level
-		goals questioned above. We will then survey existing research on such cryptographic systems to
-		determine whether any fully meet the security requirements.
+			A wealth of research has been done in this area, and a number of such systems have been devised.
+			Most of these systems have been developed by academia. However, countries such as Estonia and
+			even the United States have developed systems for voting via the Internet
+			\cite{estonia,us_vs_est} -- and while that is only tangential to the questions posed above, it
+			can be instructive to see how (if at all) these systems meet those goals.
 
-		Should an existing system sufficiently meet our requirements, we plan to construct a
-		proof-of-concept implementation of the system along with an analysis both of its effectiveness
-		at ensuring fairness and of the feasibility of employing such a system in the real world.
+		\section{Proposal}
 
-		Otherwise, we will examine the flaws and strengths of the existing designs and attempt to
-		construct a sufficient system -- or in the least, one that shows a marked improvement over
-		prior work. We will then provide an analysis of how our proposed \emph{new} system meets the
-		stated goals and could prove useful in a real-world deployment. Time permitting, we will also
-		implement a proof-of-concept for our scheme.
+			We plan to begin with a more precise quantification of the security goals that we believe must
+			be met for a voting system (whether physical or digital) in order to accomplish the higher-level
+			goals questioned above. We will then survey existing research on such cryptographic systems to
+			determine whether any fully meet the security requirements.
+
+			Should an existing system sufficiently meet our requirements, we plan to construct a
+			proof-of-concept implementation of the system along with an analysis both of its effectiveness
+			at ensuring fairness and of the feasibility of employing such a system in the real world.
+
+			Otherwise, we will examine the flaws and strengths of the existing designs and attempt to
+			construct a sufficient system -- or in the least, one that shows a marked improvement over
+			prior work. We will then provide an analysis of how our proposed \emph{new} system meets the
+			stated goals and could prove useful in a real-world deployment. Time permitting, we will also
+			implement a proof-of-concept for our scheme.
+
+	\end{multicols}
 
 	\bibliography{sources}{}
 	\bibliographystyle{plain}
