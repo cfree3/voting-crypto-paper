@@ -2,17 +2,9 @@
 
 % setup
 \documentclass[10pt]{article}
-\usepackage{amsmath}
-\usepackage{amssymb}
 \usepackage{fullpage}
-\usepackage{color}
 \usepackage{enumerate}
 \usepackage{hyperref}
-\usepackage{mathtools}
-\usepackage{listings}
-\usepackage{array}
-\usepackage{graphicx}
-\usepackage{parskip}
 \usepackage{multicol}
 
 % don't number sections
@@ -30,7 +22,7 @@
 \newcommand{\sub}[1]{\textsubscript{#1}}
 
 % title
-\title{Cryptographic techniques to ensure fair elections}
+\title{Cryptographic assurance of fairness in voting}
 \date{}
 \author{
 \begin{tabular}{c c c}
@@ -41,65 +33,65 @@ Kelsey Francis & Curtis Free & Christopher Martin \\
 
 % document
 \begin{document}
-	\maketitle
+\maketitle
 
-	\begin{abstract}
-		Current election processes do not allow participants to verify the accuracy of vote counting.
-		Applied cryptography research has yielded a number of candidate systems to replace or accompany
-		voting existing voting procedures to provide fairness guarantees while maintaining ballot secrecy.
-		We will define a set of security properties sufficient to make an election both ``fair'' and ``secret'',
-		survey existing literature on the matter, and -- if time permits -- produce a proof-of-concept
-		implementation of a system that meets these goals (either the best system we find, or one of
-		our own creation using borrowed techniques).
-	\end{abstract}
-	\begin{multicols}{2}
+\thispagestyle{empty}
 
-		\section{Background}
+\begin{multicols}{2}
 
-			Fairness of elections is of vital importance to nations such as the United States in which
-			government officials are elected to office by the people.
+\section{Background}
 
-			But how often is this fairness challenged? Given voting systems widely used today, citizens
-			must trust that the government (a) counts all cast votes (correctly) and (b) counts
-			\emph{only} votes actually cast.
+Citizens' ability to trust the fairness of elections is vital to governments whose rule
+is subject to the consent of the governed, but it is not uncommon for the veracity of
+election results to come into question.
+Current election processes do not allow participants to verify the accuracy of vote counting.
 
-			Researchers have proposed a variety of systems that make use of cryptography to empower the
-			people to verify in an election that one or both of those requirements has been met by the
-			body performing the election -- with the crucial stipulation that this verification allows
-			individual ballots to remain secret.
+Problems such as identity fraud and equality of ballot access are not amenable to
+cryptographic solutions, but their propensity to be externally observable limits the
+potential for widespread abuse.
+Internal manipulation by the government conducting the poll is a more insidious threat,
+and it is here where we may fruitfully apply cryptography to ensure honesty.
+Research in this field has yielded a number of candidate systems to replace or accompany
+existing voting procedures to provide fairness guarantees while maintaining ballot secrecy.
 
-		\section{Proposal}
+% But how often is this fairness challenged? Given voting systems widely used today, citizens
+% must trust that the government (a) counts all cast votes (correctly) and (b) counts
+% \emph{only} votes actually cast.
 
-			Our project will accomplish three goals.
+% Researchers have proposed a variety of systems that make use of cryptography to empower the
+% people to verify in an election that one or both of those requirements has been met by the
+% body performing the election -- with the crucial stipulation that this verification allows
+% individual ballots to remain secret.
 
-			\subsection{Specification of security goals}
+\section{Security goals}
 
-				We plan to begin by defining what requirements we believe must be met in order for an
-				election to be considered ``fair'' and translating those requirements into precise security
-				goals that we can reason about using cryptographic techniques. (For example, at what points
-				in the election should we require authenticated encryption, and what are the appropriate
-				unforgeability constraints?)
+We will formulate a precise security definitions of requirements we believe
+must be met  in a ``fair'' and ``private'' election.
 
-			\subsection{Literature survey}
+Fairness requires that enough information is published such that anyone is able to
+independently tabulate results, and a receipt given to each voter provides evidence
+of fraud in the event that the voter's ballot is miscounted.
 
-				We will then study existing literature on the subject, paying close attention to existing
-				end-to-end auditable voting systems, including both in-person systems (our primary focus)
-				such as Scantegrity \cite{scantegrity} and Pr\^{e}t \`{a} Voter \cite{preta} and online
-				voting systems that attempt to meet the same goals such as Helios \cite{helios}.
+Ballot secrecy is a constraint that most cryptography applications do not require.
+When votes are counted correctly, a voter must not be able to prove any
+facts about the ballot that was cast.
 
-			\subsection{Proof-of-concept implementation}
+\section{Literature survey}
 
-				Having surveyed prior research, and time-permitting, we will consider the extent to which
-				previously-developed systems meet our requirements and construct a proof-of-concept
-				implementation of one such system or one of our own design, using borrowed techniques in
-				an attempt to meet all the goals we set forth.
+We will then study existing literature on the subject, paying close attention to existing
+end-to-end auditable voting systems.
+Our primary focus is in-person systems such as Scantegrity \cite{scantegrity} and
+Pr\^{e}t \`{a} Voter \cite{preta}.
+We also consider online voting systems such as Helios \cite{helios}.
 
-		\bibliography{sources}{}
-		\bibliographystyle{plain}
+\section{Proof of concept}
 
-	\end{multicols}
+If time permits, we will construct a proof-of-concept implementation of a system that meets
+our goals, based on the systems described in the literature if they are sufficient.
+
+\bibliography{sources}{}
+\bibliographystyle{plain}
+
+\end{multicols}
 
 \end{document}
-
-% vim: set colorcolumn=101 cursorcolumn cursorline:
-
