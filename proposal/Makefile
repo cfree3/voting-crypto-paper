@@ -3,15 +3,15 @@
 MAIN=proposal
 BIB=sources
 
+pdfonly: $(MAIN).tex $(BIB).bib
+	pdflatex -shell-escape $(MAIN)
+
 pdfview: $(MAIN).tex $(BIB).bib
 	pdflatex -shell-escape $(MAIN) \
 		&& bibtex $(MAIN) \
 		&& pdflatex -shell-escape $(MAIN) \
 		&& pdflatex -shell-escape $(MAIN) \
 		&& open $(MAIN).pdf
-
-pdfonly: $(MAIN).tex $(BIB).bib
-	pdflatex -shell-escape $(MAIN)
 
 view: $(MAIN).pdf
 	open $(MAIN).pdf
