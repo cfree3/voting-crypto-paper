@@ -54,50 +54,49 @@
 
 		\section{Background}
 
-			A democratic voting system like that in the United States raises several questions to which
-			cryptography can potentially provide answers. Namely, the question at hand is \emph{how to keep
-			voting fair}. In particular, we want to consider the following questions:
-			\begin{itemize}
+			Fairness of elections is of vital importance to nations such as the United States in which
+			government officials are elected to office by the people.
 
-				\item
-					How can a government prove to a voter that his/her vote \emph{was} counted (correctly),
-					without being able to reveal the candidate for which the ballot was cast?
+			But how often is this fairness challenged? Given voting systems widely used today, citizens
+			must trust that the government (a) counts all cast votes (correctly) and (b) counts
+			\emph{only} votes actually cast.
 
-				\item
-					How can an observer verify that the votes reported by a state contain no forged votes (i.e.,
-					that the state is not cheating by introducing votes not actually cast)?
-
-			\end{itemize}
-			Cryptographic systems designed to meet exactly these goals are called \term{end-to-end auditable
-			voting systems}\cite{end_to_end}.
-
-			A wealth of research has been done in this area, and a number of such systems have been devised.
-			Most of these systems have been developed by academia. However, countries such as Estonia and
-			even the United States have developed systems for voting via the Internet
-			\cite{estonia,us_vs_est} -- and while that is only tangential to the questions posed above, it
-			can be instructive to see how (if at all) these systems meet those goals.
+			Researchers have proposed a variety of systems that make use of cryptography to empower the
+			people to verify in an election that one or both of those requirements has been met by the
+			body performing the election -- with the crucial stipulation that this verification allows
+			individual ballots to remain secret.
 
 		\section{Proposal}
 
-			We plan to begin with a more precise quantification of the security goals that we believe must
-			be met for a voting system (whether physical or digital) in order to accomplish the higher-level
-			goals questioned above. We will then survey existing research on such cryptographic systems to
-			determine whether any fully meet the security requirements.
+			Our project will accomplish three goals.
 
-			Should an existing system sufficiently meet our requirements, we plan to construct a
-			proof-of-concept implementation of the system along with an analysis both of its effectiveness
-			at ensuring fairness and of the feasibility of employing such a system in the real world.
+			\subsection{Specification of security goals}
 
-			Otherwise, we will examine the flaws and strengths of the existing designs and attempt to
-			construct a sufficient system -- or in the least, one that shows a marked improvement over
-			prior work. We will then provide an analysis of how our proposed \emph{new} system meets the
-			stated goals and could prove useful in a real-world deployment. Time permitting, we will also
-			implement a proof-of-concept for our scheme.
+				We plan to begin by defining what requirements we believe must be met in order for an
+				election to be considered ``fair'' and translating those requirements into precise security
+				goals that we can reason about using cryptographic techniques. (For example, at what points
+				in the election should we require authenticated encryption, and what are the appropriate
+				unforgeability constraints?)
+
+			\subsection{Literature survey}
+
+				We will then study existing literature on the subject, paying close attention to existing
+				end-to-end auditable voting systems, including both in-person systems (our primary focus)
+				such as Scantegrity \cite{scantegrity} and Pr\^{e}t \`{a} Voter \cite{preta} and online
+				voting systems that attempt to meet the same goals such as Helios \cite{helios}.
+
+			\subsection{Proof-of-concept implementation}
+
+				Having surveyed prior research, and time-permitting, we will consider the extent to which
+				previously-developed systems meet our requirements and construct a proof-of-concept
+				implementation of one such system or one of our own design, using borrowed techniques in
+				an attempt to meet all the goals we set forth.
+
+		\bibliography{sources}{}
+		\bibliographystyle{plain}
 
 	\end{multicols}
 
-	\bibliography{sources}{}
-	\bibliographystyle{plain}
 \end{document}
 
 % vim: set colorcolumn=101 cursorcolumn cursorline:
