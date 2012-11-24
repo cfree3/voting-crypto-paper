@@ -1,4 +1,3 @@
 vendetta
 ========
-
-End-to-end auditable voting
+Cryptographic assurance of fairness in voting
