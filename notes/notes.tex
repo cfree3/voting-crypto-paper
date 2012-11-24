@@ -1,0 +1,50 @@
+% notes.tex | CS 6260 - "Vendetta" Notes
+
+% setup
+\documentclass[10pt]{article}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{multicol}
+
+% don't number sections
+\setcounter{secnumdepth}{0}
+
+% don't highlight links
+\hypersetup{hidelinks}
+
+% custom commands
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{TODO:} \emph{#1}}}
+\newcommand{\term}[1]{\textit{#1}}
+\newcommand{\bterm}[1]{\textbf{\textit{#1}}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\super}[1]{\textsuperscript{#1}}
+\newcommand{\sub}[1]{\textsubscript{#1}}
+
+% title
+\title{Cryptographic assurance of fairness in voting}
+\date{}
+\author{
+\begin{tabular}{c c c}
+Kelsey Francis & Curtis Free & Christopher Martin \\
+\small \tt{francis@gatech.edu} & \small \tt{curtis.free@gatech.edu} & \small \tt{chris.martin@gatech.edu}
+\end{tabular}
+}
+
+% document
+\begin{document}
+\maketitle
+
+\thispagestyle{empty}
+
+\begin{multicols}{2}
+
+\todo{Put notes here}
+
+\bibliography{sources}{}
+\bibliographystyle{plain}
+
+\end{multicols}
+
+\end{document}
