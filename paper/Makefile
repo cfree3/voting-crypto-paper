@@ -1,7 +1,7 @@
 # Makefile | CS 6260 - "Vendetta" Notes
 
 MAIN=paper
-BIB=sources
+BIB=$(MAIN)
 LATEX=latexmk -pdf
 
 $(MAIN).pdf: $(MAIN).tex $(BIB).bib
