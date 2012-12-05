@@ -23,7 +23,7 @@
 \newcommand{\sub}[1]{\textsubscript{#1}}
 
 % title
-\title{Cryptographic assurance of fairness in voting}
+\title{Cryptographic assurance of secrecy and fairness in voting}
 \date{}
 \author{
 \begin{tabular}{c c c}
@@ -97,18 +97,27 @@ individuals' votes were cast.
 
 \subsection{Verifiable recording}
 
-When a voter casts a ballot, he/she knows which candidate(s) he/she \emph{intended} to vote for --
-but once the ballot is cast, a system that provides \term{collected-cast-cast verifiability} allows
-the voter to compare the recorded vote to what he/she intended to indicate on the ballot.
+When casting a ballot, a voter knows which candidate(s) he/she \emph{intended} to vote for -- but
+once the ballot is cast, a system that supports verification of vote reporting allows the voter to
+compare the recorded vote to what he/she intended to indicate on the ballot.
 
 For example, at an in-person polling location -- ignoring ballot secrecy (see below) -- a voter
 could be shown a screen giving the name of the candidate(s) he/she just voted for. If the display
 does not match the voter's intention, then the voter can ``try again'' -- or call into question the
 entire vote collection process.
 
+\subsection{Verifiable collection}
+
+After a ballot has been cast, and the voter has left the polling place, how can he/she be certain
+that the ballot used in the final count is what he/she actually cast? (This could be a problem even
+if the user has verified the \emph{recording} of the vote.)
+
+It is possible -- as we shall see -- for a voting system to allow a voter to check that the ballot
+he/she cast is exactly what was considered during vote counting.
+
 \subsection{Verifiable counting}
 
-Once votes have been recorded, it is the responsibility of the state to tally votes for the various
+Once votes have been collected, it is the responsibility of the state to tally votes for the various
 candidates in a race and publish \emph{accurate} tallies. Generally, the electorate is reliant on
 \emph{someone} (e.g., the government at some level) to provide these tallies. But it is much less
 common for voters themselves to have the opportunity to verify that the votes were tallied
@@ -140,131 +149,142 @@ While the notions of verifiability presented above allow one to ensure that vote
 they were cast, another problem is to ensure that the body holding the election cannot fabricate
 \emph{additional} votes (not actually cast) to raise the tallies as it sees fit.
 
-\section{Scantegrity \cite{scantegrity_ii}}
+\section{Scantegrity}
 
-With Scantegrity (actually Scantegrity II, successor to the original Scantegrity system), each
-ballot created is assigned a unique number. While this number can be printed in plain sight, it can
-be encrypted such that someone with physical access to a ballot box cannot link a ballot to someone
-with a receipt.
+The Scantegrity system \cite{scantegrity_ii} (technically, we consider an updated version known as
+Scantegrity II) is designed to provide verifiability atop existing in-person voting systems that
+rely on fill-in ballots that are processed via optical scan.
 
-Furthermore, each candidate on the ticket -- presented in a consistent manner across tickets (i.e.
-no randomization, though some can be used) -- is selected by filling in a ``bubble'' that reveals an
-alphanumeric confirmation code: these codes are selected such that they are independent and
-uniformly random. On a standard voter ballot, only the codes for candidates selected by the voter
-are revealed. The body holding the election -- e.g., the government -- keeps a secret \term{Table P}
-that contains all confirmation codes generated for all tickets.
+\subsection{Before voting}
 
-An important point regarding Scantegrity is that it relies on a \emph{physical property} -- the
-invisible ink used when printing confirmation code ``bubbles'' -- to combat vote coercion (i.e., no
-one can force a voter to produce a particular receipt, and no one can take a receipt and ably pay
-the person for having voted a certain way).
+Before an election is held, the body holding the election (e.g., the government) must construct four
+Tables that lie at the core of the Scantegrity system: Tables P, Q, R, and S.
 
-Scantegrity II does provide -- in their terms:
+Some selection of persons associated with the electing body use a secret-sharing scheme to protect a
+secret pseudorandom number generator key. Table P lists every ballot that will be produced for the
+election and specifies exactly what code (which we'll see later) is used for each candidate per
+ballot. These codes are generated using the pseudorandom generator and \emph{must} be kept secret.
+
+Table Q has one row per ballot, as in Table P, but the codes presented on that ballot are included
+in randomly-ordered cells so that a particular code cannot be mapped to a particular candidate.
+Once ballots have been collected, only the cell actually marked on each ballot is revealed. (Note
+that the column shuffle must be per-row, as otherwise one could determine whether two voters
+cast a vote for the same candidate.)
+
+Table S contains final vote tallies. Each column represents a particular candidate, and there will
+be one ``checked'' cell in each column for each ballot cast for that candidate.
+
+Table R is the ``heart'' of the Scantegrity Tables: it maps cast ballots in Table Q to tally marks
+in Table S. Each row in Table R maps a single cell in Q to a single cell in S, and the order of
+these mappings is pseudorandom (though the mappings must obey the data specified in Table P for vote
+correctness).
+
+\todo{Include our own depiction of the tables in an image.}
+
+\subsection{Voting}
+
+A Scantegrity ballot consists of two portions: a special optical-scan ballot strip and a second
+piece of paper that the voter will keep as a receipt. Each ballot is identified by a unique number,
+which is printed on both portions. (While this nuber can be printed in plain sight, it can also be
+encrypted on the optical-scan portion such that someone with physical access to a ballot box cannot
+link a particular ballot to a voter with receipt in-hand.)
+
+All candidates are listed on the optical-scan ballot, and the voter makes his/her choice by filling
+in a ``bubble'' that reveals an alphanumeric confirmation code (as specified in the private Table
+P), which the voter then records on the receipt portion. The ballot is sent through an optical
+scanner, and the voter takes his/her receipt when leaving the polling location. It can later be
+compared against published Table Q to ensure that the vote was recorded properly.
+
+Additionally, during the voting process, a voter can ask a poll worker for an second ``audit''
+ballot. This ballot is initially just like any other ballot: however, \emph{all} candidate codes are
+revealed, and the ballot is marked as an audit ballot. An audit ballot is scanned, but the voter is
+allowed to keep the ballot for later verification.
+
+\subsection{After voting}
+
+When a ballot has been received, the following takes place:
 \begin{enumerate}
 	\item
-		\term{Voter verifiability} - the ability of a voter to ensure that his/her vote was included in
-		the tally; and
+		The candidate code is revealed in Table Q. (If this is an audit ballot -- see below -- then all
+		are revealed, and we'll perform the following steps for each code.)
 	\item
-		\term{Universal verifiability} - the ability of \emph{anyone} to verify that, given that some
-		set of votes were cast, the candidate counts are correct.
+		A ``check'' is placed on the row in Table R that maps the revealed Q value to some value in S.
+	\item
+		The Table R mapping is followed into Table S, and a ``check'' is added to a cell in Table R
+		(to be counted as a vote for that row's candidate).
 \end{enumerate}
 
-Scantegrity \emph{II} claims to solve some issues with other/previous systems:
-\begin{itemize}
-	\item
-		\term{Pattern voting} and
-	\item
-		\term{Randomization attacks}, whereby it's possible to tell whether a ballot is actually random
-		or is ``biased.''
-\end{itemize}
+Tables Q and S and published in their entirety. However, one member of each Q-to-S cell mapping pair
+is hidden prior to its publication (except for audit ballots, for which both sides of the mapping
+are revealed). This data is required for third-party verification.
 
-Unfortunately, in order to provide some of its guarantees, Scantegrity II does require a published
-list of \emph{who} voted. Such a list could aid groups from penalizing those who do not -- or do --
-vote.
+This process will be discussed further in the analysis.
 
-At the polling place, a voter may choose to receive a second \term{audit ballot}. This ballot is
-marked as such, and all confirmation codes are revealed. The importance of this second ballot will
-be revealed below.
-
-The group holding the election generates four tables:
-\begin{enumerate}
-	\item
-		\term{Table P}, which is kept secret and which contains all confirmation codes printed on all
-		ballots (along with the corresponding candidate);
-	\item
-		\term{Table Q}, which is published and which uses scanned information along with Table P to
-		reveal -- on a per-ballot basis -- only those confirmation codes which the voter actually
-		revealed (including \emph{all} codes for audit ballots).
-	\item
-		\term{Table R}, which provides a randomly-order but correct bijection from cells in Table Q to
-		cells in Table S. After the election has concluded, rows in this table are flagged with a
-		boolean ``true'' value if they correspond to codes (Table Q) revealed by the voter on
-		\emph{non-audit} ballots. At that time, only one side of the mapping -- to Q or to S -- is
-		revealed for non-audit ballots, and which side is revealed is select by a ``true random,
-		publicly verifiable coin flip.''
-	\item
-		\term{Table S}, which provides per-candidate counts by recording in cells, via Table R mappings,
-		those codes that were actually revealed on legitimate non-audit ballots.
-\end{enumerate}
-
-\todo{Include own image of the tables.}
-
-\todo{Need a much more in-depth discussion of how Scantegrity works. Right now it's a play-by-play
-from the source.}
 
 \section{Pr\^{e}t \`{a} Voter}
 
-\section{Helios \cite{helios}}
+\todo{Fill in.}
 
-Overall, Helios performs the following steps in an election:
-\begin{enumerate}
-	\item
-		Encrypt individual votes as they're cast.
-	\item
-		Mix the votes for privacy.
-		\begin{enumerate}
-    	\item
-				Re-encrypt the ballots (ElGamal).
-    	\item
-				Shuffle using a \term{mixnet}.
-			\item
-				Give cryptographic proof of a legitimate shuffle.
-			\item
-				Decrypt the votes.
-			\item
-				Give cryptographic proof of the decryptions.
-		\end{enumerate}
-	\item
-		Tally the votes.
-\end{enumerate}
+\section{Helios}
 
-Helios relies on auditing at two stages: (a) by voters when casting ballots and (b) by independent
-auditors after votes have been tallied.
+Helios \cite{helios} -- unlike Scantegrity and Pr\^{e}t \`{a} Voter -- is an \emph{online} voting
+system that attempts to meet many of the same goals (namely, verifiability).
 
-After entering one's candidate choices, but before a vote is actually cast, a voter is presented
-with a (SHA-1) hash of his/her encrypted vote and can choose to ``audit'' the ballot, in which case
-Helios will reveal all the information necessary (including ``randomness'') for the voter to verify
-that the hash correctly represents the vote he/she indended to cast. A voter can continue to audit
-ballots (due to randomness, different each time) before casting one. He/she is \emph{not} given the
-information necessary to audit the ballot that is ultimately cast.
+\subsection{Before voting}
 
-Once votes have been tallied at the end of the election, auditors can obtain all data from the
-election -- except for the secret keys necessary for shuffling and encryption but (notably)
-including the generated proofs -- to verify that the votes were counted correctly. These auditors
-can post their verifications publicly and compare results with other auditors.
+At the heart of Helios is a single ElGamal keypair. The secret key is known only to the Helios
+server, but the public key can (by its nature) be accessed in some way by all participants.
 
-It is important to note -- and the Helios researchers note this -- that this hinges on active
-involvement from the community.
+\subsection{Voting}
 
-The ballot shuffle and decryption are proved using a technique called an \term{Honest-Verifier
-Zero-Knowledge} proof. However, because the challenges in Helios are generated without human
-involvement, a technique called Fiat-Shamir is used to obtain a hash (so $\code{0}$s and
-$\code{1}$s) that are treated as the challenges.
+When a voter goes to cast a vote, his/her candidate selection is encrypted locally (i.e., on his/her
+computer terminal, in the browser) using ElGamal. Prior to casting the ballot, the voter is
+presented with a SHA-1 hash of his/her encrypted ballot. At this point, the voter may choose either
+to submit the ballot or to ``audit'' it. In the former case, the ballot is cast and voting is
+complete. But when a voter chooses to ``audit,'' he/she is presented with \emph{all} of the data
+used to encrypt the vote. Namely, this includes the public key and the ``randomness'' that were used
+by an implementation of ElGamal to encrypt the vote. The voter can then -- using a modified ElGamal
+(one which allows randomness to be specified) -- perform the encryption and SHA-1 hash him/herself
+to verify that the hash that \emph{would} have been cast actually does represent the ballot he/she
+intended to cast.
 
-\todo{Need a much more in-depth discussion of how Helios works. Right now it's a play-by-play from
-the source.}
+\subsection{After voting}
+
+Once all ballots have been collected by the Helios server, they are shuffled by a cryptographic
+``mixnet.'' \todo{We should discuss re-encryption details, which are covered in the Helios paper.
+Maybe we cover the details in the Pr\^{e}t \`{a} Voter discussion?}
+
+The ``mixnet'' accomplishes two goals: it shuffles the votes \emph{and} re-encrypts them (with the
+same key, but with different random inputs). A random permutation -- referred to as $\pi_{N}$ (where
+$N$ is the total number of votes) -- is first used to perform the shuffle. Each ciphertext 
+$c_{i}$ is then ``re-encrypted'' to a new ciphertext $d_{i}$ that equivalent to the first \emph{had
+the random input at encrypt time been different} by a particular amount $s_{i}$.
+
+The ``shuffling'' is important because it prevents an attacker (or simple onlooker) from linking
+a decrypted ballot with a particular encrypted ballot -- and thus a voter. Re-encryption means that
+an auditor examining a proof of proper decryption (see below) cannot determine how a particular
+voter cast his/her ballot by hashing all ciphertexts in the proof and matching those hashes to the
+publicly-posted encrypted vote hashes.
+
+Finally, votes are decrypted and tallied. At this time, Helios also publishes the information
+necessary for anyone who wishes to audit the election to verify that the mixnet's shuffling and
+decryption were performed properly.
+
+In order to provide a guarantee of proper shuffling, Helios actually shuffles the votes multiple
+times, actually using only the final shuffle in tallying the results. The other shuffles are
+referred to as ``shadow mixes'' and are made public. Those mixes are hashed to obtain a bit string
+that is used, bit-for-bit, as a set of challenges, with one bit value indicating that Helios must
+provide the permutation used for the shuffle and the $s_{i}$ values used for re-encryption, and the 
+other bit value indiciating that it must provide a mapping from one shadow mix to another. This is
+known as an ``Honest-Verifier Zero-Knowlege'' proof, for which the probability that the final
+product is correct is equal to $1 - 2^{t}$, where $t$ is the number of shadow mixes produced.
+
+Similarly, the Chaum-Peterson zero-knowledge proof technique is used to prove that decryption is
+correct. \todo{How much detail should we provide?}
 
 \section{Analysis}
+
+We will analyze these voting systems by considering each security goal in turn.
 
 \subsection{Ballot secrecy}
 
@@ -285,14 +305,16 @@ In both Scantegrity and Helios, the following information is revealed after the 
 	\item
 		\emph{Some} information about \emph{all} encrypted ballots, linked to voters.
 	\item
-		\emph{All} decrypted ballots, emph{not} linked to voters.
+		\emph{All} decrypted ballots, \emph{not} linked to voters.
 \end{itemize}
 
 In Scantegrity, ``public'' version of a ballot is really just an encryption of the voter's
 selections: it is an independent, uniformly random code chosen beforehand and corresponding to a
 particular candidate for that ballot. Table P defines an explicit, ``keyless'' encryption
 function -- and each ballot holds just enough information from Table P to encrypt a single voter's
-responses.
+responses. (Alternatively, one can think of Table P as an encryption scheme definition wherein the
+ballot number is the key. However, the table is a collection of \emph{all the keys}, and its
+compromise would eliminate ballot secrecy for all ballots.)
 
 In Helios, the ``public'' ballot is a hash of an encryption. Helios uses ElGamal to encrypt ballots,
 which -- unlike Scantegrity's core \emph{random} Table P -- could be subject to attack, given that
@@ -304,9 +326,6 @@ key that -- because it is theoretically completely random -- ensures that cipher
 decrypted. Helios, however, uses known algorithms with shorter keys that could potentially be
 attacked. Compromise of keys in either system would destroy their privacy guarantees.
 
-\todo{We can also talk about Scantegrity's Table P as a definition wherein the ballot number is the
-key.}
-
 \subsubsection{Mixing}
 
 Essentially, both Scantegrity and Helios use some mechanism to ``shuffle'' votes so that -- even
@@ -314,8 +333,8 @@ with votes decrypted for tallying -- encrypted ballots cannot be linked to their
 counterparts.
 
 In Scantegrity, the ballot ``mix'' is predetermined, as it is defined by the generation of Table R.
-When that table is constructed, ballots are randomly \todo{Really?} ordered. With the exception of
-audit ballots, the information revealed that is ultimately revealed allows half of the ballots to be
+When that table is constructed, ballots are pseudorandomly ordered. With the exception of audit
+ballots, the information revealed that is ultimately revealed allows half of the ballots to be
 traced only from Table Q to Table R; and the other half can only be traced from Table R to Table S.
 Should Table P be compromised, one could complete all mappings and violate secrecy entirely -- or
 simply decrypt encrypted votes with no attention giving to Table R. Should the mapping on
@@ -342,14 +361,54 @@ fulfillment of other goals, such as \emph{verifiability}.
 
 \subsection{Verifiable recording}
 
+At the time a ballot is cast, both Scantegrity and Helios attempt to ensure a voter that his/her
+vote is recorded exactly as intended.
+
+In Scantegrity, this verification is rolled into the ballot casting process. After recording the
+receipt him/herself, a voter can visually check that the code on the receipt matches the candidates
+selected on the ballot.
+
+Helios does not actually permit a voter to verify the ballot that he/she actually casts. Rather, it
+allows users to verify a ballot without casting it (after which point it cannot be cast without
+a new encryption). The assumption here is that \emph{some} voter will choose to audit a ballot, and
+so the system cannot simply cheat and show the user a predetermined hash: it \emph{must} be a valid
+one -- otherwise the deception would be revealed should the voter choose to exercise his/her right
+to audit.
+
+While both systems provide the voter some assurance that the proper vote was recorded, Scantegrity's
+verification process is more direct and provides a stronger guarantee that the ballot \emph{actually
+cast} was recorded properly.
+
+\subsection{Verifiable collection}
+
+A common theme in verifiable voting systems seems to be the presence of a published ``bulletin
+board'' of votes. (Note that because these boards contain only encrypted information, they do not
+violate ballot secrecy.)
+
+In the case on Scantegrity, this information is primarily embodied in the published version of Table
+Q. After the election, a voter can compare his/her receipt code with that revealed for his ballot in
+Table Q. If the code does not match, then something is amiss.
+
+Helios, similarly, exposes a complete list of ballot hashes. A voter can examine this data set to
+ensure that it accurately reflects the hash that was reported on screen when the ballot was cast.
+
 \subsection{Verifiable counting}
+
+\todo{Fill in.}
 
 \subsection{Coercion prevention}
 
 Scantegrity prevents coercion via the manner it uses to ``encrypt'' ballots. Once cast, a ballot's
 ciphertext is \emph{always public}. A voter can claim that he/she voted in a particular manner, but
 without exposure of the data maintained in Table P -- Scantegrity's ``secret'' -- the voter has no
-way to prove to a third party that the claim is true. This is 
+way to prove to a third party that the claim is true.
+
+An important point regarding Scantegrity is that it also relies on a \emph{physical property} -- the
+invisible ink used when printing confirmation code ``bubbles'' -- to combat vote coercion (i.e., no
+one can force a voter to produce a particular receipt, and no one can take a receipt and ably pay
+the person for having voted a certain way). This is akin to keeping Table P a secret: the ballots
+together \emph{are} Table P, and using special ink allows the codes to be printed without making it
+easy for a ballot handler to simple read Table P from the ballots prior to the election.
 
 Helios, which is designed for use in an online setting, has no illusions about coercion: in fact,
 the public implementation makes it clear to voters that they would be easy to coerce. Setting
@@ -374,6 +433,22 @@ per-precinct can reveal ``stuffing'' should the number of ballots being reported
 precinct/polling location be significantly higher than expected \cite{helios}.
 
 \section{Other considerations}
+
+\subsection{Clever attacks on verifiable voting systems}
+
+Scantegrity \emph{II} claims to solve some issues with other/previous systems:
+\begin{itemize}
+	\item
+		\term{Pattern voting} and
+	\item
+		\term{Randomization attacks}, whereby it's possible to tell whether a ballot is actually random
+		or is ``biased.''
+\end{itemize}
+
+\subsection{Voter involvement}
+
+It is important to note -- and the Helios researchers note this -- that this hinges on active
+involvement from the community.
 
 \subsection{Identity of (non-)voters}
 
@@ -412,6 +487,8 @@ indeed outside the scope of these systems as they have been developed; but perha
 research into advanced cryptographic schemes we can someday eliminate any state-held secret data and
 yet hold a completely verifiable election.
 
+\todo{Remark on the fact that the election itself has a single primary ElGamal keypair.}
+
 \subsection{Randomness}
 
 It is clear that Scantegrity's secrets -- Tables P and R -- are generated using a source of true
@@ -429,6 +506,8 @@ and SHA-1); however, as the authors have designed the scheme with particular pri
 specification is less open to interpretation (and thus potentially harmful choices).
 
 \section{Conclusion}
+
+\todo{Fill in.}
 
 \bibliography{sources}{}
 \bibliographystyle{plain}
