@@ -46,7 +46,7 @@ Kelsey Francis & Curtis Free & Christopher Martin \\
   Applied cryptography research has yielded a number of candidate systems to replace or accompany
   existing voting procedures to provide fairness guarantees while maintaining ballot secrecy. We
 	detail security properties necessary to make an election both ``fair'' and ``secret'' and analyze
-	how three popular verifable voting systems -- Scantegrity, \pv{}, and Helios --
+	how three popular verifiable voting systems -- Scantegrity, \pv{}, and Helios --
 	use cryptographic techniques to meet those goals.
 
 \end{abstract}
@@ -57,12 +57,12 @@ Kelsey Francis & Curtis Free & Christopher Martin \\
 
 Citizens' ability to trust the fairness of elections is vital to governments whose rule is subject
 to the consent of the governed, but it is not uncommon for the veracity of election results to come
-into question. Current election processes do not allow participants to verify the accuracy of vote
+into question.  Current election processes do not allow participants to verify the accuracy of vote
 counting.
 
 Problems such as identity fraud and equality of ballot access are not amenable to cryptographic
 solutions, but their propensity to be externally observable limits the potential for widespread
-abuse. Internal manipulation by the government conducting the poll is a more insidious threat, and
+abuse.  Internal manipulation by the government conducting the poll is a more insidious threat, and
 it is here where we may fruitfully apply cryptography to ensure honesty. Research in this field has
 yielded a number of candidate systems to replace or accompany existing voting procedures to provide
 fairness guarantees while maintaining ballot secrecy.
@@ -187,7 +187,7 @@ correctness).
 
 A Scantegrity ballot consists of two portions: a special optical-scan ballot strip and a second
 piece of paper that the voter will keep as a receipt. Each ballot is identified by a unique number,
-which is printed on both portions. (While this nuber can be printed in plain sight, it can also be
+which is printed on both portions. (While this number can be printed in plain sight, it can also be
 encrypted on the optical-scan portion such that someone with physical access to a ballot box cannot
 link a particular ballot to a voter with receipt in-hand.)
 
@@ -277,8 +277,8 @@ times, actually using only the final shuffle in tallying the results. The other 
 referred to as ``shadow mixes'' and are made public. Those mixes are hashed to obtain a bit string
 that is used, bit-for-bit, as a set of challenges, with one bit value indicating that Helios must
 provide the permutation used for the shuffle and the $s_{i}$ values used for re-encryption, and the
-other bit value indiciating that it must provide a mapping from one shadow mix to another. This is
-known as an ``Honest-Verifier Zero-Knowlege'' proof, for which the probability that the final
+other bit value indicating that it must provide a mapping from one shadow mix to another. This is
+known as an ``Honest-Verifier Zero-Knowledge'' proof, for which the probability that the final
 product is correct is equal to $1 - 2^{t}$, where $t$ is the number of shadow mixes produced.
 
 Similarly, the Chaum-Peterson zero-knowledge proof technique is used to prove that decryption is
@@ -353,7 +353,7 @@ kept secret in order to ensure ballot secrecy. In Scantegrity, Table R has one m
 and a second to Table S, and neither of these can be compromised to ensure secrecy for all ballots.
 But in Helios, use of a cryptographic mixnet means that both inputs and outputs can be mapped to
 voters and tallies, respectively, without revealing the inner mapping. In some ways, Helios's
-approach accomplishes the same goals as \emph{but} is implemented as an anthesis of Scantegrity's
+approach accomplishes the same goals as \emph{but} is implemented as an antithesis of Scantegrity's
 Table system.
 
 \todo{Include image showing difference between Scantegrity and Helios voting mappings.}
@@ -428,9 +428,9 @@ collision-resistant hash function.)
 Note that each of these systems rely on publication of some information for every ballot that was
 cast (whether it be the entire encrypted ballot or a hash of the ballot).
 
-The public nature of htis information can combat ``ballot stuffing.'' If names are associatd with
+The public nature of this information can combat ``ballot stuffing.'' If names are associated with
 the posted ballots, then it should be obvious to one or more careful observers (given sufficient
-resources) that nonexistent persons are being posted. Furthermore, publiction of ballots
+resources) that nonexistent persons are being posted. Furthermore, publication of ballots
 per-precinct can reveal ``stuffing'' should the number of ballots being reported by a particular
 precinct/polling location be significantly higher than expected \cite{helios}.
 
@@ -494,13 +494,13 @@ yet hold a completely verifiable election.
 \subsection{Randomness}
 
 It is clear that Scantegrity's secrets -- Tables P and R -- are generated using a source of true
-randomness. If there is any detrminism in generating those tables, an attacker could exploit the
+randomness. If there is any determinism in generating those tables, an attacker could exploit the
 generation method to violate privacy. Helios, on the other hand, was designed with application in
-mind and therefore uses standard crytographic techniques (e.g., ElGamal and SHA-1).
+mind and therefore uses standard cryptographic techniques (e.g., ElGamal and SHA-1).
 
-Given a flawless implementation of Scantegrity as specified in research, it can certaily provide the
+Given a flawless implementation of Scantegrity as specified in research, it can certainly provide the
 security it claims. However, we note that an amateur implementation of the protocol laid out by
-Scantegrity's creators -- e.g., one that uses a nonperfect source of randomization -- could lead to
+Scantegrity's creators -- e.g., one that uses a non-perfect source of randomization -- could lead to
 a very insecure system.
 
 The same can be said for Helios, should it be implemented with inappropriate primitives (not ElGamal
