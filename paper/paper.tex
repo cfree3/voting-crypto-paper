@@ -98,6 +98,22 @@ security goal to address in a verifiable voting system.
 Secrecy and verifiability are naturally at odds, and only through cryptography can we
 reconcile these two requirements.
 
+\subsection{Coercion prevention}
+
+Amidst these other goals, it becomes difficult to prevent \term{coercion}: the ability of some party
+to coerce (through force, payment, or otherwise) a voter to vote for a particular candidate.
+
+With conventional in-person voting, coercion is thwarted to some extent by the physical security
+imposed at polling locations: a party cannot \emph{watch} a voter cast a ballot and so cannot rest
+assured that the voter did as told.
+
+Though ballot secrecy prevents such a party from determining that a voter has done as asked, it is a
+different problem to ensure that even the voter him/herself cannot prove that his/her ballot was
+cast a certain way. We will show, in describing these systems, that the cryptographic techniques
+used to provide ballot secrecy also ensure -- in the case of in-person elections -- that a voter
+cannot prove his/her ballot was cast a certain way even with the data necessarily exposed to provide
+verifiability.
+
 \subsection{Verifiable recording}
 
 When casting a ballot, a voter knows which candidate(s) he/she \emph{intended} to vote for -- but
@@ -129,22 +145,6 @@ common for voters themselves to have the opportunity to verify that the votes we
 These systems, however, allow publication of data sufficient to verify tallies. Relying on
 cryptography to ensure secrecy, each system involves exposure of cryptographically-hidden vote
 counts that can be used to ensure that -- given all votes cast -- the final tallies are correct.
-
-\subsection{Coercion prevention}
-
-Amidst these other goals, it becomes difficult to prevent \term{coercion}: the ability of some party
-to coerce (through force, payment, or otherwise) a voter to vote for a particular candidate.
-
-With conventional in-person voting, coercion is thwarted to some extent by the physical security
-imposed at polling locations: a party cannot \emph{watch} a voter cast a ballot and so cannot rest
-assured that the voter did as told.
-
-Though ballot secrecy prevents such a party from determining that a voter has done as asked, it is a
-different problem to ensure that even the voter him/herself cannot prove that his/her ballot was
-cast a certain way. We will show, in describing these systems, that the cryptographic techniques
-used to provide ballot secrecy also ensure -- in the case of in-person elections -- that a voter
-cannot prove his/her ballot was cast a certain way even with the data necessarily exposed to provide
-verifiability.
 
 \subsection{True cast ballots only}
 
