@@ -1,0 +1,9 @@
+Terms to use for consistency
+----------------------------
+
+- Voter
+- Election authority
+- Types of ballot secrecy:
+    - Privacy
+    - Receipt-freeness
+- Individual verifiability
