@@ -78,24 +78,25 @@ we will draw conclusions about the role of these schemes in elections today and 
 
 \section{Background}
 
-A ``verifiable'' election is one in which the voters may rest assured that the body holding the
-election (e.g., a government) reports final vote tallies that exactly reflect votes as they were
-cast by the electorate.
+An election involves an information exchange between many independent \term{voters} and a single
+\term{election authority} organization.
+In a verifiable election, each voter may verify that her own vote was counted correctly
+by the election authority.
+A voter, or any other third party \term{auditor}, may also verify the accuracy of the final tallies
+reported by the election authority. \cite{preta}
 
 \subsection{Ballot secrecy}
 
-In many ways, ballot secrecy (often referred to as \term{receipt freeness}) is the most complicated security goal addressed by these systems.
+Countries such as the United States hold as a fundamental right that voting can be performed
+in secret to reduce the possibility of voter coercion from any private entities.
+In some developing states where corruption is prevalent, it may be desirable keep an
+individual's vote hidden even from the election authority, again for the reason of
+limiting coercibility. The latter goal is significantly more restrictive.
 
-Note that ballot secrecy is of vital importance for several reasons. In countries such as the United
-States, it is a fundamental ``right'' that a voter is never required to reveal the candidate for
-whom he/she voted. But in some third-world countries, the ability to determine one's chosen
-candidate could determine that individual's life or death (e.g., a location in which a malevolent
-dictator holds elections as a fa\c{c}ade). Therefore, it is crucial that one not be able to
-determine how another voted.
-
-This is also the most interesting goal, as secrecy complicates verifiability. It is only through use
-of cryptography that systems such as those we study can provide verifiability without revealing how
-individuals' votes were cast.
+Ballot secrecy, often referred to as \term{receipt-freeness}, is perhaps the most complicated
+security goal to address in a verifiable voting system.
+Secrecy and verifiability are naturally at odds, and only through cryptography can we
+reconcile these two requirements.
 
 \subsection{Verifiable recording}
 
