@@ -6,4 +6,5 @@ Terms to use for consistency
 - Types of ballot secrecy:
     - Privacy
     - Receipt-freeness
+    - Coercion resistance
 - Individual verifiability
