@@ -9,7 +9,7 @@
 \usepackage{multicol}
 
 % don't number sections
-\setcounter{secnumdepth}{0}
+%\setcounter{secnumdepth}{0}
 
 % don't highlight links
 \hypersetup{hidelinks}
@@ -76,43 +76,15 @@ analyze their differing approaches to security and how well they meet the necess
 we will present some ideas that are not -- but perhaps should be -- considered by these schemes, and
 we will draw conclusions about the role of these schemes in elections today and in the future.
 
-\section{Background}
-
 An election involves an information exchange between many independent \term{voters} and a single
 \term{election authority} organization.
-In a verifiable election, each voter may verify that her own vote was counted correctly
+In a \term{verifiable} election, each voter may verify that her own vote was counted correctly
 by the election authority.
 A voter, or any other third party \term{auditor}, may also verify the accuracy of the final tallies
 reported by the election authority. \cite{preta}
+Voting is complicated by the requirement that all votes be secretive to avoid coercion.
 
-\subsection{Ballot secrecy}
-
-Countries such as the United States hold as a fundamental right that voting can be performed
-in secret to reduce the possibility of voter coercion from any private entities.
-In some developing states where corruption is prevalent, it may be desirable keep an
-individual's vote hidden even from the election authority, again for the reason of
-limiting coercibility. The latter goal is significantly more restrictive.
-
-Ballot secrecy, often referred to as \term{receipt-freeness}, is perhaps the most complicated
-security goal to address in a verifiable voting system.
-Secrecy and verifiability are naturally at odds, and only through cryptography can we
-reconcile these two requirements.
-
-\subsection{Coercion prevention}
-
-Amidst these other goals, it becomes difficult to prevent \term{coercion}: the ability of some party
-to coerce (through force, payment, or otherwise) a voter to vote for a particular candidate.
-
-With conventional in-person voting, coercion is thwarted to some extent by the physical security
-imposed at polling locations: a party cannot \emph{watch} a voter cast a ballot and so cannot rest
-assured that the voter did as told.
-
-Though ballot secrecy prevents such a party from determining that a voter has done as asked, it is a
-different problem to ensure that even the voter him/herself cannot prove that his/her ballot was
-cast a certain way. We will show, in describing these systems, that the cryptographic techniques
-used to provide ballot secrecy also ensure -- in the case of in-person elections -- that a voter
-cannot prove his/her ballot was cast a certain way even with the data necessarily exposed to provide
-verifiability.
+\section{Verifiability}
 
 \subsection{Verifiable recording}
 
@@ -151,6 +123,43 @@ counts that can be used to ensure that -- given all votes cast -- the final tall
 While the notions of verifiability presented above allow one to ensure that votes were counted as
 they were cast, another problem is to ensure that the body holding the election cannot fabricate
 \emph{additional} votes (not actually cast) to raise the tallies as it sees fit.
+
+\section{Ballot secrecy}
+
+It is often necessary to maintain secrecy of invididuals' votes, to avoid the possibility
+that a voter may receive either retribution or reward.
+We give two definitions of ballot secrecy: \term{privacy} and \term{receipt-freeness}.
+
+\subsection{Privacy}
+
+\subsection{Receipt-freeness}
+
+\subsection{Stuff that will be moved into one of the previous sections}
+
+Countries such as the United States hold as a fundamental right that voting can be performed
+in secret to reduce the possibility of voter coercion from any private entities.
+In some developing states where corruption is prevalent, it may be desirable keep an
+individual's vote hidden even from the election authority, again for the reason of
+limiting coercibility. The latter goal is significantly more restrictive.
+
+Ballot secrecy, often referred to as \term{receipt-freeness}, is perhaps the most complicated
+security goal to address in a verifiable voting system.
+Secrecy and verifiability are naturally at odds, and only through cryptography can we
+reconcile these two requirements.
+
+Amidst these other goals, it becomes difficult to prevent \term{coercion}: the ability of some party
+to coerce (through force, payment, or otherwise) a voter to vote for a particular candidate.
+
+With conventional in-person voting, coercion is thwarted to some extent by the physical security
+imposed at polling locations: a party cannot \emph{watch} a voter cast a ballot and so cannot rest
+assured that the voter did as told.
+
+Though ballot secrecy prevents such a party from determining that a voter has done as asked, it is a
+different problem to ensure that even the voter him/herself cannot prove that his/her ballot was
+cast a certain way. We will show, in describing these systems, that the cryptographic techniques
+used to provide ballot secrecy also ensure -- in the case of in-person elections -- that a voter
+cannot prove his/her ballot was cast a certain way even with the data necessarily exposed to provide
+verifiability.
 
 \section{Scantegrity}
 
