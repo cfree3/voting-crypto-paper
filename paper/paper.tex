@@ -531,33 +531,34 @@ rather than voter names. This does make detection of ballot stuffing more diffic
 around the fact that at some level, \emph{someone} must possess a list of voters to prevent double
 voting.
 
-\subsection{Keeping secrets}
+\subsection{Secrets and trust}
 
-In each of these key systems, there exists some way to tie a vote back to a voter: there is always
-some secret. Ideally, there would be a system wherein a vote could be tallied properly without being
-able to reveal who the vote was for.
+In each of these key systems, there exists some way to tie a vote back to a voter or to a physical
+receipt: there is always some secret. Ideally, there would be a system wherein a vote could be
+tallied properly without \emph{anyone} being able to reveal the candidate selected on the ballot.
+Admittedly, to achieve this would be difficult: in the case of a single vote, ``tallying'' just it
+would reveal the candidate for which it was cast. But if a secret \emph{must} be kept, it is
+worthwhile to take precautions to minimize risk of compromise.
 
-Admittedly, that would be difficult: if that is the only vote, then ``tallying'' just it would
-reveal the candidate for which it was cast. But it would be a worthy goal at least to minimize, if
-not eliminate, the amount of data that must be kept secret. Usually it is one or two pieces of data
--- and these systems attempt to mitigate risk by requiring that multiple entities be present in
-order to access that secret data.
+In both Scantegrity and Helios, the most fundamental secret is a key. In Scantegrity, this is the
+seed to the pseudorandom number generator used to create Table P; and in Helios, it is a single
+ElGamal keypair used for all encryption/decryption operations during a particular election.
 
-With each of these systems, there is \emph{still} a significant level of trust placed in the body
-holding the election. This is the issue with secrets: \emph{someone} must keep them.
+The random seed in Scantegrity is a secret that is shared among a group of members of the election
+authority, thereby mitigating risk of compromise.
 
-In order for a voting system to be \emph{useful}, it must be feasible given the nature of society
-today, and so solutions that rely on, say, personally-maintained keypairs are outside the scope of
-a practical system.
+But in Helios, there is a single private ElGamal key that lives on the server. (Note that the
+creators of Helios admit this weakness but choose to overlook it, as it is their goal to make
+verifiable voting an accessible technology, even with some costs.)
 
-In the end, there are as yet no \emph{perfect} verifiable voting systems that achieve both complete
-privacy and completely verifiable integrity, as there are always attack vectors (often physical
-ones). This has not been seen as a problem by researchers in the past, as physical security is
-indeed outside the scope of these systems as they have been developed; but perhaps with further
-research into advanced cryptographic schemes we can someday eliminate any state-held secret data and
-yet hold a completely verifiable election.
+Furthermore, with each of these systems, there is \emph{still} a significant level of trust placed
+in the body holding the election. This is the issue with secrets: \emph{someone} must keep them, and
+we must place some trust in that party. In Scantegrity, for example, we must assume that we can
+trust at least enough of the secret holders so that the seed cannot be obtained and used
+inappropriately.
 
-\todo{Remark on the fact that the election itself has a single primary ElGamal keypair.}
+Public-key encryption could potentially solve some of these issues; however, it is not feasible
+today to require each voter to maintain his/her own keypair.
 
 \subsection{Randomness}
 
