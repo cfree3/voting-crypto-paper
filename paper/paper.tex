@@ -136,7 +136,7 @@ Therefore a voting system must maintain secrecy of invididuals' votes to avoid
 the possibility that a voter may receive retribution or reward for casting a vote
 in any particular way.
 
-Delaune \cite{delaune} gives several definitions of ballot secrecy.
+\cite{delaune} enumerates a hierarchy of ballot secrecy definitions.
 In order of increasing strength, they are
 \term{privacy}, \term{receipt-freeness}, and \term{coercion resistance}.
 
@@ -148,9 +148,12 @@ In a verifiable voting system, the system includes the verification process.
 So in addition to casting a vote in private, the voter must also be able to
 audit her vote without revealing its content.
 
-More formally, we can say that an election system has private ballots
-if a reasonably time-bounded attacker, having access to the public information
-published by the polling authority ... \todo{}
+\cite{kremer} gives an \term{observational equivalence} definition of privacy:
+An election system is private if an attacker, having access to the public
+information published by the polling authority, ``cannot distinguish
+the actual situation from one in which two voters have swapped their votes.''
+
+% For all pairs of voters $v_1$, $v_2$ ...
 
 \subsection{Receipt-freeness}
 
