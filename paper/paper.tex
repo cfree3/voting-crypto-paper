@@ -45,7 +45,7 @@
 \begin{abstract}
 
   Current election processes do not allow participants to verify the accuracy of vote counting.
-  Applied cryptography research has yielded a number of candidate systems to replace or accompany
+  Applied cryptography research has yielded a number of candidate systems that replace or accompany
   existing voting procedures to provide fairness guarantees while maintaining ballot secrecy. We
 	detail security properties necessary to make an election both ``fair'' and ``secret'' and analyze
 	how three popular verifiable voting systems -- Scantegrity, \pv{}, and Helios --
@@ -64,9 +64,9 @@ counting.
 
 Problems such as identity fraud and equality of ballot access are not amenable to cryptographic
 solutions, but their propensity to be externally observable limits the potential for widespread
-abuse.  Internal manipulation by the government conducting the poll is a more insidious threat, and
+abuse.  Internal manipulation by the authority conducting the poll is a more insidious threat, and
 it is here where we may fruitfully apply cryptography to ensure honesty. Research in this field has
-yielded a number of candidate systems to replace or accompany existing voting procedures to provide
+yielded a number of candidate systems that replace or accompany existing voting procedures to provide
 fairness guarantees while maintaining ballot secrecy.
 
 In this survey, we will study three of the most well-known solutions: the in-person voting systems
@@ -74,7 +74,7 @@ Scantegrity and \pv{} and the online voting system Helios.
 
 First, we will discuss the background of verifiable voting schemes and the security goals they
 strive to satisfy. Second, we will describe each of the three voting schemes in turn. We will then
-analyze their differing approaches to security and how well they meet the necessary goals. Finally,
+analyze their differing approaches to security and how well they achieve the desired goals. Finally,
 we will present some ideas that are not -- but perhaps should be -- considered by these schemes, and
 we will draw conclusions about the role of these schemes in elections today and in the future.
 
@@ -82,9 +82,9 @@ An election involves an information exchange between many independent \term{vote
 \term{election authority}.
 In a \term{verifiable} election, each voter may verify that her own vote was counted correctly
 by the election authority.
-A voter, or any other third party \term{auditor}, may also verify the accuracy of the final tallies
+A voter, or any other third party \term{auditor}, may also verify the accuracy of the final vote tallies
 reported by the election authority. \cite{preta}
-Voting is complicated by the requirement that all votes be secretive to avoid coercion.
+Voting is complicated by the requirement that all votes remain secret to avoid coercion.
 
 \section{Verifiability}
 
