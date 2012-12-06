@@ -69,14 +69,14 @@ it is here where we may fruitfully apply cryptography to ensure honesty. Researc
 yielded a number of candidate systems that replace or accompany existing voting procedures to provide
 fairness guarantees while maintaining ballot secrecy.
 
-In this survey, we will study three of the most well-known solutions: the in-person voting systems
+In this survey, we study three of the most well-known solutions: the in-person voting systems
 Scantegrity and \pv{} and the online voting system Helios.
 
-First, we will discuss the background of verifiable voting schemes and the security goals they
-strive to satisfy. Second, we will describe each of the three voting schemes in turn. We will then
+First, we discuss the background of verifiable voting schemes and the security goals they
+strive to satisfy. Second, we describe each of the three voting schemes in turn. We then
 analyze their differing approaches to security and how well they achieve the desired goals. Finally,
-we will present some ideas that are not -- but perhaps should be -- considered by these schemes, and
-we will draw conclusions about the role of these schemes in elections today and in the future.
+we present some ideas that are not -- but perhaps should be -- considered by these schemes, and
+we draw conclusions about the role of these schemes in elections today and in the future.
 
 An election involves an information exchange between many independent \term{voters} and a single
 \term{election authority}.
@@ -179,7 +179,7 @@ assured that the voter did as told.
 
 Though ballot secrecy prevents such a party from determining that a voter has done as asked, it is a
 different problem to ensure that even the voter herself cannot prove that her ballot was
-cast a certain way. We will show, in describing these systems, that the cryptographic techniques
+cast a certain way. We show, in describing these systems, that the cryptographic techniques
 used to provide ballot secrecy also ensure -- in the case of in-person elections -- that a voter
 cannot prove her ballot was cast a certain way even with the data necessarily exposed to provide
 verifiability.
@@ -260,7 +260,7 @@ Tables Q and S and published in their entirety. However, one member of each Q-to
 is hidden prior to its publication (except for audit ballots, for which both sides of the mapping
 are revealed). This data is required for third-party verification.
 
-This process will be discussed further in the analysis.
+We further discuss this process in our analysis.
 
 
 \section{\pv{}}
@@ -325,7 +325,7 @@ correct. \todo{How much detail should we provide?}
 
 \section{Analysis}
 
-We will analyze these voting systems by considering each security goal in turn.
+We analyze these voting systems by considering each security goal in turn.
 
 \subsection{Ballot secrecy}
 
