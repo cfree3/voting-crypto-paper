@@ -178,10 +178,10 @@ imposed at polling locations: a party cannot \emph{watch} a voter cast a ballot 
 assured that the voter did as told.
 
 Though ballot secrecy prevents such a party from determining that a voter has done as asked, it is a
-different problem to ensure that even the voter him/herself cannot prove that his/her ballot was
+different problem to ensure that even the voter herself cannot prove that her ballot was
 cast a certain way. We will show, in describing these systems, that the cryptographic techniques
 used to provide ballot secrecy also ensure -- in the case of in-person elections -- that a voter
-cannot prove his/her ballot was cast a certain way even with the data necessarily exposed to provide
+cannot prove her ballot was cast a certain way even with the data necessarily exposed to provide
 verifiability.
 
 \section{Scantegrity}
@@ -230,10 +230,10 @@ which is printed on both portions. (While this number can be printed in plain si
 encrypted on the optical-scan portion such that someone with physical access to a ballot box cannot
 link a particular ballot to a voter with receipt in-hand.)
 
-All candidates are listed on the optical-scan ballot, and the voter makes his/her choice by filling
+All candidates are listed on the optical-scan ballot, and the voter makes her choice by filling
 in a ``bubble'' that reveals an alphanumeric confirmation code (as specified in the private Table
 P), which the voter then records on the receipt portion. The ballot is sent through an optical
-scanner, and the voter takes his/her receipt when leaving the polling location. It can later be
+scanner, and the voter takes her receipt when leaving the polling location. It can later be
 compared against published Table Q to ensure that the vote was recorded properly.
 
 Additionally, during the voting process, a voter can ask a poll worker for an second ``audit''
@@ -279,14 +279,14 @@ server, but the public key can be accessed in some way by all participants.
 
 \subsection{Voting}
 
-When a voter goes to cast a vote, his/her candidate selection is encrypted locally (i.e., on his/her
+When a voter goes to cast a vote, her candidate selection is encrypted locally (i.e., on her
 computer terminal, in the browser) using ElGamal. Prior to casting the ballot, the voter is
-presented with a SHA-1 hash of his/her encrypted ballot. At this point, the voter may choose either
+presented with a SHA-1 hash of her encrypted ballot. At this point, the voter may choose either
 to submit the ballot or to ``audit'' it. In the former case, the ballot is cast and voting is
 complete. But when a voter chooses to ``audit,'' he/she is presented with \emph{all} of the data
 used to encrypt the vote. Namely, this includes the public key and the ``randomness'' that were used
 by an implementation of ElGamal to encrypt the vote. The voter can then -- using a modified ElGamal
-which allows randomness to be specified -- perform the encryption and SHA-1 hash him/herself
+which allows randomness to be specified -- perform the encryption and SHA-1 hash herself
 to verify that the hash that \emph{would} have been cast actually does represent the ballot he/she
 intended to cast.
 
@@ -304,7 +304,7 @@ the random input at encrypt time been different} by a particular amount $s_{i}$.
 
 The ``shuffling'' is important because it prevents an attacker from linking a decrypted ballot with
 a particular encrypted ballot -- and thus a voter. Re-encryption means that an auditor examining a
-proof of proper decryption cannot determine how a particular voter cast his/her ballot by hashing
+proof of proper decryption cannot determine how a particular voter cast her ballot by hashing
 all ciphertexts in the proof and matching those hashes to the publicly-posted encrypted vote hashes.
 
 Finally, votes are decrypted and tallied. At this time, Helios also publishes the information
@@ -402,18 +402,18 @@ fulfillment of other goals, such as \emph{verifiability}.
 
 \subsection{Verifiable recording}
 
-At the time a ballot is cast, both Scantegrity and Helios attempt to ensure a voter that his/her
+At the time a ballot is cast, both Scantegrity and Helios attempt to ensure a voter that her
 vote is recorded exactly as intended.
 
 In Scantegrity, this verification is rolled into the ballot casting process. After recording the
-receipt him/herself, a voter can visually check that the code on the receipt matches the candidates
+receipt herself, a voter can visually check that the code on the receipt matches the candidates
 selected on the ballot.
 
 Helios does not actually permit a voter to verify the ballot that he/she actually casts. Rather, it
 allows users to verify a ballot without casting it (after which point it cannot be cast without
 a new encryption). The assumption here is that \emph{some} voter will choose to audit a ballot, and
 so the system cannot simply cheat and show the user a predetermined hash: it \emph{must} be a valid
-one -- otherwise the deception would be revealed should the voter choose to exercise his/her right
+one -- otherwise the deception would be revealed should the voter choose to exercise her right
 to audit.
 
 While both systems provide the voter some assurance that the proper vote was recorded, Scantegrity's
@@ -427,7 +427,7 @@ board'' of votes. (Note that because these boards contain only encrypted informa
 violate ballot secrecy.)
 
 In the case on Scantegrity, this information is primarily embodied in the published version of Table
-Q. After the election, a voter can compare his/her receipt code with that revealed for his ballot in
+Q. After the election, a voter can compare her receipt code with that revealed for his ballot in
 Table Q. If the code does not match, then something is amiss.
 
 Helios, similarly, exposes a complete list of ballot hashes. A voter can examine this data set to
@@ -436,7 +436,7 @@ ensure that it accurately reflects the hash that was reported on screen when the
 \subsection{Verifiable counting}
 
 In order to preserve ballot secrecy, it must be impossible for anyone -- including a voter
-him/herself -- to match published vote information (encrypted ballot or a hash) to its inclusion in
+herself -- to match published vote information (encrypted ballot or a hash) to its inclusion in
 the final tally, as this would reveal the candidate for which the ballot was cast. As such, these
 systems verify the accuracy of their counting indirectly by instilling in auditors confidence that
 the tallying mechanisms are correct.
@@ -483,7 +483,7 @@ easy for a ballot handler to simple read Table P from the ballots prior to the e
 Helios, which is designed for use in an online setting, has no illusions about coercion: in fact,
 the public implementation makes it clear to voters that they would be easy to coerce. Setting
 physical security aside: as with Scantegrity, Helios does not reveal to a voter all the
-information necessary to \emph{prove} a decryption of his/her ballot. Though a voter is able to see
+information necessary to \emph{prove} a decryption of her ballot. Though a voter is able to see
 encryption details for ballots chosen for audit, that information is never displayed to the user
 when finally casting a ballot. Furthermore, even if it were, it is possible (though perhaps
 unlikely) that a crafty voter could fashion encryption details (a false key and false randomization
@@ -563,7 +563,7 @@ trust at least enough of the secret holders so that the seed cannot be obtained 
 inappropriately.
 
 Public-key encryption could potentially solve some of these issues; however, it is not feasible
-today to require each voter to maintain his/her own key pair.
+today to require each voter to maintain her own key pair.
 
 \subsection{Randomness}
 
