@@ -130,7 +130,7 @@ they were cast, another problem is to ensure that the body holding the election 
 The intent of an election is to determine the true will of the voters.
 If there is any possibility for a third party to discover the content of
 an individual's ballot, then the voter's own will may be undermined by coercion.
-Therefore a voting system must maintain secrecy of invididuals' votes to avoid
+Therefore a voting system must maintain secrecy of individuals' votes to avoid
 the possibility that a voter may receive retribution or reward for casting a vote
 in any particular way.
 
@@ -274,7 +274,7 @@ system; however, it, too, is designed with an emphasis on verifiability.
 
 \subsection{Before voting}
 
-At the heart of Helios is a single ElGamal keypair. The secret key is known only to the Helios
+At the heart of Helios is a single ElGamal key pair. The secret key is known only to the Helios
 server, but the public key can be accessed in some way by all participants.
 
 \subsection{Voting}
@@ -547,7 +547,7 @@ worthwhile to take precautions to minimize risk of compromise.
 
 In both Scantegrity and Helios, the most fundamental secret is a key. In Scantegrity, this is the
 seed to the pseudorandom number generator used to create Table P; and in Helios, it is a single
-ElGamal keypair used for all encryption/decryption operations during a particular election.
+ElGamal key pair used for all encryption/decryption operations during a particular election.
 
 The random seed in Scantegrity is a secret that is shared among a group of members of the election
 authority, thereby mitigating risk of compromise.
@@ -563,7 +563,7 @@ trust at least enough of the secret holders so that the seed cannot be obtained 
 inappropriately.
 
 Public-key encryption could potentially solve some of these issues; however, it is not feasible
-today to require each voter to maintain his/her own keypair.
+today to require each voter to maintain his/her own key pair.
 
 \subsection{Randomness}
 
