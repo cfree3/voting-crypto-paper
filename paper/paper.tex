@@ -186,16 +186,16 @@ verifiability.
 
 \section{Scantegrity}
 
-The Scantegrity system \cite{scantegrity_ii} (technically, we consider an updated version known as
-Scantegrity II) is designed to provide verifiability atop existing in-person voting systems that
-rely on fill-in ballots that are processed via optical scan.
+The Scantegrity system \cite{scantegrity_ii} -- we consider an updated version technically known as
+Scantegrity II -- is designed to provide verifiability atop existing in-person voting systems that
+rely on fill-in ballots processed via optical scan.
 
 \subsection{Before voting}
 
 Before an election is held, the election authority must construct four Tables that lie at the core
 of the Scantegrity system: Tables P, Q, R, and S.
 
-Some selection of persons associated with the electing body use a secret-sharing scheme to protect a
+Some selection of officials conducting the election use a secret-sharing scheme to protect a
 secret pseudorandom number generator key. Table P lists every ballot that will be produced for the
 election and specifies exactly what code is used for each candidate per ballot. These codes are
 generated using the pseudorandom generator and \emph{must} be kept secret.
@@ -209,7 +209,7 @@ cast a vote for the same candidate.)
 Table S contains final vote tallies. Each column represents a particular candidate, and there will
 be one ``checked'' cell in each column for each ballot cast for that candidate.
 
-Table R is the ``heart'' of the Scantegrity Tables: it maps cast ballots in Table Q to tally marks
+Table R comprises the heart of the Scantegrity Tables: it maps cast ballots in Table Q to tally marks
 in Table S. Each row in Table R maps a single cell in Q to a single cell in S, and the order of
 these mappings is pseudorandom (though the mappings must obey the data specified in Table P for vote
 correctness).
