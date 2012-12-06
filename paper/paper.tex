@@ -90,23 +90,23 @@ Voting is complicated by the requirement that all votes remain secret to avoid c
 
 \subsection{Verifiable recording}
 
-When casting a ballot, a voter knows which candidate(s) he/she \emph{intended} to vote for -- but
+When casting a ballot, a voter knows which candidate(s) she \emph{intended} to vote for -- but
 once the ballot is cast, a system that supports verification of vote reporting allows the voter to
-compare the recorded vote to what he/she intended to indicate on the ballot.
+compare the recorded vote to what she intended to indicate on the ballot.
 
 For example, at an in-person polling location -- ignoring ballot secrecy (see below) -- a voter
-could be shown a screen giving the name of the candidate(s) he/she just voted for. If the display
+could be shown a screen giving the name of the candidate(s) she just voted for. If the display
 does not match the voter's intention, then the voter can ``try again'' -- or call into question the
 entire vote collection process.
 
 \subsection{Verifiable collection}
 
-After a ballot has been cast, and the voter has left the polling place, how can he/she be certain
-that the ballot used in the final count is what he/she actually cast? (This could be a problem even
+After a ballot has been cast, and the voter has left the polling place, how can she be certain
+that the ballot used in the final count is what she actually cast? (This could be a problem even
 if the user has verified the \emph{recording} of the vote.)
 
 It is possible -- as we shall see -- for a voting system to allow a voter to check that the ballot
-he/she cast is exactly what was considered during vote counting.
+she cast is exactly what was considered during vote counting.
 
 \subsection{Verifiable counting}
 
@@ -283,11 +283,11 @@ When a voter goes to cast a vote, her candidate selection is encrypted locally (
 computer terminal, in the browser) using ElGamal. Prior to casting the ballot, the voter is
 presented with a SHA-1 hash of her encrypted ballot. At this point, the voter may choose either
 to submit the ballot or to ``audit'' it. In the former case, the ballot is cast and voting is
-complete. But when a voter chooses to ``audit,'' he/she is presented with \emph{all} of the data
+complete. But when a voter chooses to ``audit,'' she is presented with \emph{all} of the data
 used to encrypt the vote. Namely, this includes the public key and the ``randomness'' that were used
 by an implementation of ElGamal to encrypt the vote. The voter can then -- using a modified ElGamal
 which allows randomness to be specified -- perform the encryption and SHA-1 hash herself
-to verify that the hash that \emph{would} have been cast actually does represent the ballot he/she
+to verify that the hash that \emph{would} have been cast actually does represent the ballot she
 intended to cast.
 
 \subsection{After voting}
@@ -409,7 +409,7 @@ In Scantegrity, this verification is rolled into the ballot casting process. Aft
 receipt herself, a voter can visually check that the code on the receipt matches the candidates
 selected on the ballot.
 
-Helios does not actually permit a voter to verify the ballot that he/she actually casts. Rather, it
+Helios does not actually permit a voter to verify the ballot that she actually casts. Rather, it
 allows users to verify a ballot without casting it (after which point it cannot be cast without
 a new encryption). The assumption here is that \emph{some} voter will choose to audit a ballot, and
 so the system cannot simply cheat and show the user a predetermined hash: it \emph{must} be a valid
@@ -469,7 +469,7 @@ straightforward.
 \subsection{Coercion prevention}
 
 Scantegrity prevents coercion via the manner it uses to ``encrypt'' ballots. Once cast, a ballot's
-ciphertext is \emph{always public}. A voter can claim that he/she voted in a particular manner, but
+ciphertext is \emph{always public}. A voter can claim that she voted in a particular manner, but
 without exposure of the data maintained in Table P -- Scantegrity's ``secret'' -- the voter has no
 way to prove to a third party that the claim is true.
 
@@ -591,7 +591,7 @@ Compared to traditional voting systems, each of the schemes we have examined pro
 greater assurance that their votes \emph{are} counted and that the election authority has
 \emph{properly} counted all votes that were cast. By satisfying the various facets of ballot
 secrecy, they also serve to enforce practices that in general must only be assumed: that voters
-cannot be coerced and that a voter is never required to reveal the candidate for whom he/she voted.
+cannot be coerced and that a voter is never required to reveal the candidate for whom she voted.
 
 However, other potentially-important considerations, such as identity of (non-)voters, are not
 addressed by these systems at all but do lay groundwork for further research.
