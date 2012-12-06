@@ -460,6 +460,11 @@ modified after they are initially created (prior to \emph{any} auditing). Throug
 election authority must therefore \term{commit} to the predetermined tables such that any change to
 the data is either impossible or detectable.
 
+In some ways, count verification is simpler than that in Scantegrity. We have already discussed how
+Helios uses a mixnet to achieve ballot secrecy. Once votes have been mixed using this mechanism,
+they are decrypted, and so the actual plaintext ballots are exposed. From that point, tallying is
+straightforward.
+
 \subsection{Coercion prevention}
 
 Scantegrity prevents coercion via the manner it uses to ``encrypt'' ballots. Once cast, a ballot's
