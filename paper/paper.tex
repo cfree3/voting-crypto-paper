@@ -430,7 +430,31 @@ ensure that it accurately reflects the hash that was reported on screen when the
 
 \subsection{Verifiable counting}
 
-\todo{Fill in.}
+In order to preserve ballot secrecy, it must be impossible for anyone -- including a voter
+him/herself -- to match published vote information (encrypted ballot or a hash) to its inclusion in
+the final tally, as this would reveal the candidate for which the ballot was cast. As such, these
+systems verify the accuracy of their counting indirectly by instilling in auditors confidence that
+the tallying mechanisms are correct.
+
+Scantegrity relies on unused \term{audit ballots} to prove that its Tables Q, R, and S accurately
+match ballot selections with the proper candidates. These ballots come in two forms: a group of
+ballots randomly selected and checked prior to the election by members of the election authority;
+and the collection of optional secondary ballots that are offered to voters.
+
+Auditing is then performed by revealing all bubble codes on the ballots and uncovering the entire
+R-to-S mapping in Table Q for all rows corresponding to those revealed codes. An auditor then
+manually examine the revealed information and ensure that, had a code been revealed as on a counted
+ballot, the tally would have been affected appropriately. Note that this method of verification is
+indirect in that it does not allow \emph{any} of the ballots that are cast during the election to be
+verified, for reasons previously stated. Rather, it is expected that the random selection of ballots
+beforehand, along with the selection of ballots chosen by voters as audit ballots, is a sufficient
+sample to detect improper counting. Thus, if these checks past, it is accepted that all other
+ballots must also be counted properly.
+
+It is important to note that in order for this assurance to hold, the predetermined Tables cannot be
+modified after they are initially created (prior to \emph{any} auditing). Through some means, the
+election authority must therefore \term{commit} to the predetermined tables such that any change to
+the data is either impossible or detectable.
 
 \subsection{Coercion prevention}
 
