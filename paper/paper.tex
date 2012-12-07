@@ -53,7 +53,8 @@
   Applied cryptography research has yielded a number of candidate systems that replace or accompany
   existing voting procedures to provide fairness guarantees while maintaining ballot secrecy. We
 	detail security properties necessary to make an election both \term{verifiable} and \term{secret}
-	and analyze how three popular verifiable voting systems -- Scantegrity, \pv{}, and Helios --
+	and analyze how three popular verifiable voting systems
+	-- \term{Scantegrity}, \term{\pv{}}, and \term{Helios} --
 	use cryptographic techniques to meet those goals.
 	\end{quote}\end{quote}\end{quote}
   \vspace{1em}
@@ -75,7 +76,7 @@ yielded a number of candidate systems that replace or accompany existing voting 
 fairness guarantees while maintaining ballot secrecy.
 
 In this survey, we study three of the most well-known solutions: the in-person voting systems
-Scantegrity and \pv{} and the online voting system Helios.
+\term{Scantegrity} and \term{\pv{}} and the online voting system \term{Helios}.
 
 First, we discuss the background of verifiable voting schemes and the security goals they
 strive to satisfy. Second, we describe each of the three voting schemes in turn. We then
@@ -165,7 +166,7 @@ information published by the polling authority, ``cannot distinguish
 the actual situation from one in which two voters have swapped their votes.''
 This notion is formalized using a process calculus such as the pi calculus.
 
-Another intuition which we will find useful in discussion of the Scantegrity II system is:
+Another intuition which we will find useful in discussion of the \term{Scantegrity} system is:
 Assume a list of votes $a_1, a_1, \ldots, a_n$ is public, and the mapping between
 voters and votes is described by a secret permutation $\pi_k$ such that the vote
 belonging to voter $v_i$ is $a_{\pi_k(i)}$.
@@ -222,16 +223,17 @@ is assured that it was cast by the voter with probability
 $\ge 1 - \frac{v}{(n-1)!}$, where $v$ is the number of voters.
 \end{enumerate}
 
-\section{Scantegrity}
+\section{\term{Scantegrity}}
 
-The Scantegrity system \cite{scantegrity_ii} -- we consider an updated version technically known as
-Scantegrity II -- is designed to provide verifiability atop existing in-person voting systems that
+The \term{Scantegrity} system \cite{scantegrity_ii}
+-- we consider an updated version technically known as \term{Scantegrity II} --
+is designed to provide verifiability atop existing in-person voting systems that
 rely on fill-in ballots processed via optical scan.
 
 \subsection{Before voting}
 
 Before an election is held, the election authority must construct four Tables that lie at the core
-of the Scantegrity system: Tables P, Q, R, and S (see Figure ~\ref{fig:scantegrity}).
+of the \term{Scantegrity} system: Tables P, Q, R, and S (see Figure ~\ref{fig:scantegrity}).
 
 Some selection of officials conducting the election use a secret-sharing scheme to protect a
 secret pseudorandom number generator key. Table P lists every ballot that will be produced for the
@@ -247,7 +249,7 @@ cast a vote for the same candidate.)
 Table S contains final vote tallies. Each column represents a particular candidate, and there will
 be one marked cell in each column for each ballot cast for that candidate.
 
-Table R comprises the heart of the Scantegrity Tables: it maps cast ballots in Table Q to tally marks
+Table R comprises the heart of the \term{Scantegrity} tables: it maps cast ballots in Table Q to tally marks
 in Table S. Each row in Table R maps a single cell in Q to a single cell in S, and the order of
 these mappings is pseudorandom (though the mappings must obey the data specified in Table P for vote
 correctness).
@@ -262,7 +264,7 @@ further in our analysis.
 	\center
 	\includegraphics[width=\columnwidth]{images/include/scantegrity.pdf}
 	\caption{
-		Visualization of links between Scantegrity tables.
+		Visualization of links between \term{Scantegrity} tables.
 		Lines represent pointers in Table R.
 		Dashed lines represent secret (unpublished) values.
 	}
@@ -271,7 +273,7 @@ further in our analysis.
 
 \subsection{Voting}
 
-A Scantegrity ballot consists of two portions: a special optical-scan ballot strip and a second
+A \term{Scantegrity} ballot consists of two portions: a special optical-scan ballot strip and a second
 piece of paper that the voter will keep as a receipt. Each ballot is identified by a unique number,
 which is printed on both portions. (While this number can be printed in plain sight, it can also be
 encrypted on the optical-scan portion such that someone with physical access to a ballot box cannot
@@ -309,7 +311,7 @@ are revealed). This data is required for third-party verification.
 
 We further discuss this process in our analysis.
 
-\section{\pv{}}
+\section{\term{\pv{}}}
 
 \pv\ \cite{preta} also aims to offer a familiar, in-person voting experience while providing cryptographic assurance of
 a fair election.
@@ -325,7 +327,7 @@ See Figure \ref{fig:preta} for a depiction of the ballot form.
 \begin{figure}
 	\center
 	\includegraphics[width=\columnwidth]{images/include/preta.pdf}
-	\caption{\pv{} ballot}
+	\caption{\term{\pv{}} ballot}
 	\label{fig:preta}
 \end{figure}
 
@@ -357,14 +359,14 @@ Mixing the encrypted votes before or during the decryption process (depending on
 \pv\ is flexible enough to use either a decryption or reencryption mixnet, and with the latter, a variety of encryption schemes.
 Scratch \& Vote \cite{scratch}, a variation on \pv, tallies the votes homomorphically rather than with a mixnet.
 
-\section{Helios}
+\section{\term{Helios}}
 
-Helios \cite{helios} -- unlike Scantegrity and \pv{} -- is an \emph{online} voting
+\term{Helios} \cite{helios} -- unlike \term{Scantegrity} and \term{\pv{}} -- is an \emph{online} voting
 system; however, it, too, is designed with an emphasis on verifiability.
 
 \subsection{Before voting}
 
-At the heart of Helios is a single ElGamal key pair. The secret key is known only to the Helios
+At the heart of \term{Helios} is a single ElGamal key pair. The secret key is known only to the \term{Helios}
 server, but the public key can be accessed in some way by all participants.
 
 \subsection{Voting}
@@ -382,13 +384,13 @@ intended to cast.
 
 \subsection{After voting}
 
-Once all ballots have been collected by the Helios server, they are shuffled by a cryptographic
+Once all ballots have been collected by the \term{Helios} server, they are shuffled by a cryptographic
 \term{mixnet}.
 
 \begin{figure}
 	\center
 	\includegraphics[width=0.8\columnwidth]{images/include/mixnet.pdf}
-	\caption{Simple re-encryption \term{mixnet} like the one used in Helios}
+	\caption{Simple re-encryption \term{mixnet} like the one used in \term{Helios}}
 	\label{fig:mixnet}
 \end{figure}
 
@@ -404,18 +406,18 @@ a particular encrypted ballot -- and thus a voter. Re-encryption means that an a
 proof of proper decryption cannot determine how a particular voter cast her ballot by hashing
 all ciphertexts in the proof and matching those hashes to the publicly-posted encrypted vote hashes.
 
-In order to provide a guarantee of proper shuffling, Helios shuffles the votes multiple
+In order to provide a guarantee of proper shuffling, \term{Helios} shuffles the votes multiple
 times, actually using only the final shuffle in tallying the results. The other shuffles,
 referred to as ``shadow mixes'', are made public. Those mixes are hashed to obtain a bit string
-that is used, bit-for-bit, as a set of challenges, with one bit value indicating that Helios must
+that is used, bit-for-bit, as a set of challenges, with one bit value indicating that \term{Helios} must
 provide the permutation used for the shuffle and the $s_{i}$ values used for re-encryption, and the
 other bit value indicating that it must provide a mapping from one shadow mix to another. This is
 known as a challenge-response ``Honest-Verifier Zero-Knowledge'' proof, and the use of a hash to
-obtain the set of challenges allows this process to be completed entirely within the Helios system
+obtain the set of challenges allows this process to be completed entirely within the \term{Helios} system
 -- without human involvement -- for publication and auditor verification.
 
-Once auditors are satisfied with the proofs, Helios decrypts and tallies the ballots. Similarly,
-Helios proves that ballot decryptions are accurate using a challenge-response zero-knowledge scheme
+Once auditors are satisfied with the proofs, \term{Helios} decrypts and tallies the ballots. Similarly,
+\term{Helios} proves that ballot decryptions are accurate using a challenge-response zero-knowledge scheme
 known as the \term{Chaum-Pedersen protocol}, through which the system proves that \emph{all}
 decrypted ballots are in fact correct plaintexts for the corresponding mixnet outputs. Challenges
 are generated by the system using a technique similar to that employed to provide mixnet proofs.
@@ -440,7 +442,7 @@ Each of these systems provides ballot secrecy by performing a three-step process
 
 \subsubsection{Encryption}
 
-In both Scantegrity and Helios, the following information is revealed after the election:
+In both \term{Scantegrity} and \term{Helios}, the following information is revealed after the election:
 \begin{itemize}
 	\item
 		\emph{Some} information about \emph{all} encrypted ballots, linked to voters.
@@ -448,7 +450,7 @@ In both Scantegrity and Helios, the following information is revealed after the 
 		\emph{All} decrypted ballots, \emph{not} linked to voters.
 \end{itemize}
 
-In Scantegrity, public version of a ballot is really just an encryption of the voter's
+In \term{Scantegrity}, public version of a ballot is really just an encryption of the voter's
 selections: it is an independent, uniformly random code chosen beforehand and corresponding to a
 particular candidate for that ballot. Table P defines an explicit, keyless encryption
 function -- and each ballot holds just enough information from Table P to encrypt a single voter's
@@ -456,23 +458,23 @@ responses. (Alternatively, one can think of Table P as an encryption scheme defi
 ballot number is the key. However, the table is a collection of \emph{all the keys}, and its
 compromise would eliminate ballot secrecy for all ballots.)
 
-In Helios, the public ballot is a hash of an encryption. Helios uses ElGamal to encrypt ballots,
-which -- unlike Scantegrity's core \emph{random} Table P -- could be subject to attack, given that
-ElGamal is a published encryption function. Similarly, Helios uses the standard SHA-1 hash algorithm
-to hash encrypted ballots. Note that we are not making a precise quantification about Helios's
+In \term{Helios}, the public ballot is a hash of an encryption. \term{Helios} uses ElGamal to encrypt ballots,
+which -- unlike \term{Scantegrity}'s core \emph{random} Table P -- could be subject to attack, given that
+ElGamal is a published encryption function. Similarly, \term{Helios} uses the standard SHA-1 hash algorithm
+to hash encrypted ballots. Note that we are not making a precise quantification about \term{Helios}'s
 security: rather, we simply note that the difference between these two systems can be thought of as
-a tradeoff between key size and privacy guarantees. Scantegrity essentially has an immensely large
+a tradeoff between key size and privacy guarantees. \term{Scantegrity} essentially has an immensely large
 key that -- because it is theoretically completely random -- ensures that ciphertext cannot be
-decrypted. Helios, however, uses known algorithms with shorter keys that could potentially be
+decrypted. \term{Helios}, however, uses known algorithms with shorter keys that could potentially be
 attacked. Compromise of keys in either system would destroy their privacy guarantees.
 
 \subsubsection{Mixing}
 
-Essentially, both Scantegrity and Helios use some mechanism to shuffle votes so that -- even
+Essentially, both \term{Scantegrity} and \term{Helios} use some mechanism to shuffle votes so that -- even
 with votes decrypted for tallying -- encrypted ballots cannot be linked to their plaintext
 counterparts.
 
-In Scantegrity, the ballot mix is predetermined, as it is defined by the generation of Table R.
+In \term{Scantegrity}, the ballot mix is predetermined, as it is defined by the generation of Table R.
 When that table is constructed, ballots are pseudorandomly ordered. With the exception of audit
 ballots, the information revealed that is ultimately revealed allows half of the ballots to be
 traced only from Table Q to Table R; and the other half can only be traced from Table R to Table S.
@@ -481,18 +483,18 @@ simply decrypt encrypted votes with no attention giving to Table R. Should the m
 \emph{either} size of Table R to votes in Table Q \emph{or} tallies in Table S be deterministic,
 privacy would be compromised for half of all voters.
 
-Where Table R lies between encryptions and decryptions in Scantegrity, Helios makes use of a
+Where Table R lies between encryptions and decryptions in \term{Scantegrity}, \term{Helios} makes use of a
 cryptographic \term{mixnet} -- performed with cast ballots in hand -- to prevent an attacker from
-tracing a vote to its decryption. Unlike in Scantegrity, \emph{all} encrypted votes can be traced to
+tracing a vote to its decryption. Unlike in \term{Scantegrity}, \emph{all} encrypted votes can be traced to
 their mixnet input, and \emph{all} mixnet outputs can be traced to a location in the tally; however,
 those one cannot connect those two traces, such that secrecy is preserved.
 
 At a high level, the difference between these two schemes is in the number of mappings that must be
-kept secret in order to ensure ballot secrecy. In Scantegrity, Table R has one mapping to Table Q
+kept secret in order to ensure ballot secrecy. In \term{Scantegrity}, Table R has one mapping to Table Q
 and a second to Table S, and neither of these can be compromised to ensure secrecy for all ballots.
-But in Helios, use of a cryptographic mixnet means that both inputs and outputs can be mapped to
-voters and tallies, respectively, without revealing the inner mapping. In some ways, Helios's
-approach accomplishes the same goals as \emph{but} is implemented as an antithesis of Scantegrity's
+But in \term{Helios}, use of a cryptographic mixnet means that both inputs and outputs can be mapped to
+voters and tallies, respectively, without revealing the inner mapping. In some ways, \term{Helios}'s
+approach accomplishes the same goals as \emph{but} is implemented as an antithesis of \term{Scantegrity}'s
 Table system.
 
 It is important that we have considered secrecy mechanisms first, as these strategies enable
@@ -500,21 +502,21 @@ fulfillment of other goals, such as \emph{verifiability}.
 
 \subsection{Verifiable recording}
 
-At the time a ballot is cast, both Scantegrity and Helios attempt to ensure a voter that her
+At the time a ballot is cast, both \term{Scantegrity} and \term{Helios} attempt to ensure a voter that her
 vote is recorded exactly as intended.
 
-In Scantegrity, this verification is rolled into the ballot casting process. After recording the
+In \term{Scantegrity}, this verification is rolled into the ballot casting process. After recording the
 receipt herself, a voter can visually check that the code on the receipt matches the candidates
 selected on the ballot.
 
-Helios does not actually permit a voter to verify the ballot that she actually casts. Rather, it
+\term{Helios} does not actually permit a voter to verify the ballot that she actually casts. Rather, it
 allows users to verify a ballot without casting it (after which point it cannot be cast without
 a new encryption). The assumption here is that \emph{some} voter will choose to audit a ballot, and
 so the system cannot simply cheat and show the user a predetermined hash: it \emph{must} be a valid
 one -- otherwise the deception would be revealed should the voter choose to exercise her right
 to audit.
 
-While both systems provide the voter some assurance that the proper vote was recorded, Scantegrity's
+While both systems provide the voter some assurance that the proper vote was recorded, \term{Scantegrity}'s
 verification process is more direct and provides a stronger guarantee that the ballot \emph{actually
 cast} was recorded properly.
 
@@ -524,11 +526,11 @@ A common theme in verifiable voting systems seems to be the presence of a publis
 board} of votes. Note that because these boards contain only encrypted information, they do not
 violate ballot secrecy.
 
-In the case on Scantegrity, this information is primarily embodied in the published version of Table
+In the case on \term{Scantegrity}, this information is primarily embodied in the published version of Table
 Q. After the election, a voter can compare her receipt code with that revealed for his ballot in
 Table Q. If the code does not match, then something is amiss.
 
-Helios, similarly, exposes a complete list of ballot hashes. A voter can examine this data set to
+\term{Helios}, similarly, exposes a complete list of ballot hashes. A voter can examine this data set to
 ensure that it accurately reflects the hash that was reported on screen when the ballot was cast.
 
 \subsection{Verifiable counting}
@@ -539,7 +541,7 @@ the final tally, as this would reveal the candidate for which the ballot was cas
 systems verify the accuracy of their counting indirectly by instilling in auditors confidence that
 the tallying mechanisms are correct.
 
-One source of vote auditing in Scantegrity relies on unused \term{audit ballots} to prove that its
+One source of vote auditing in \term{Scantegrity} relies on unused \term{audit ballots} to prove that its
 Tables Q, R, and S accurately match ballot selections with the proper candidates. These ballots come
 in two forms: a group of ballots randomly selected and checked prior to the election by members of
 the election authority; and the collection of optional secondary ballots that are offered to voters.
@@ -579,28 +581,28 @@ modified after they are initially created (prior to \emph{any} auditing). Throug
 election authority must therefore \term{commit} to the predetermined tables such that any change to
 the data is either impossible or detectable.
 
-In some ways, Helios count verification is simpler than that in Scantegrity. We have already
-discussed how Helios uses a mixnet to achieve ballot secrecy. Once votes have been mixed using this
+In some ways, \term{Helios} count verification is simpler than that in \term{Scantegrity}. We have already
+discussed how \term{Helios} uses a mixnet to achieve ballot secrecy. Once votes have been mixed using this
 mechanism, they are decrypted, and so the actual plaintext ballots are exposed. From that point,
 tallying is straightforward.
 
 \subsection{Coercion prevention}
 
-Scantegrity prevents coercion via the manner it uses to encrypt ballots. Once cast, a ballot's
+\term{Scantegrity} prevents coercion via the manner it uses to encrypt ballots. Once cast, a ballot's
 ciphertext is \emph{always public}. A voter can claim that she voted in a particular manner, but
-without exposure of the data maintained in Table P -- Scantegrity's secret -- the voter has no
+without exposure of the data maintained in Table P -- \term{Scantegrity}'s secret -- the voter has no
 way to prove to a third party that the claim is true.
 
-An important point regarding Scantegrity is that it also relies on a \emph{physical property} -- the
+An important point regarding \term{Scantegrity} is that it also relies on a \emph{physical property} -- the
 invisible ink used when printing confirmation code bubbles -- to combat vote coercion (i.e., no
 one can force a voter to produce a particular receipt, and no one can take a receipt and ably pay
 the person for having voted a certain way). This is akin to keeping Table P a secret: the ballots
 together \emph{are} Table P, and using special ink allows the codes to be printed without making it
 easy for a ballot handler to simple read Table P from the ballots prior to the election.
 
-Helios, which is designed for use in an online setting, has no illusions about coercion: in fact,
+\term{Helios}, which is designed for use in an online setting, has no illusions about coercion: in fact,
 the public implementation makes it clear to voters that they would be easy to coerce. Setting
-physical security aside: as with Scantegrity, Helios does not reveal to a voter all the
+physical security aside: as with \term{Scantegrity}, \term{Helios} does not reveal to a voter all the
 information necessary to \emph{prove} a decryption of her ballot. Though a voter is able to see
 encryption details for ballots chosen for audit, that information is never displayed to the user
 when finally casting a ballot. Furthermore, even if it were, it is possible (though perhaps
@@ -628,7 +630,7 @@ It is worth noting that without active participation on the part of the voters, 
 schemes provide significant benefit. Only if some voters actually \emph{do} audit the election
 processes is there any guarantee that the election was fair.
 
-The creators of Helios note this fact, and it is reflected in their work, as the system makes at
+The creators of \term{Helios} note this fact, and it is reflected in their work, as the system makes at
 least recording verification an obvious and easy process.
 
 \subsection{Identity of (non-)voters}
@@ -652,20 +654,20 @@ Admittedly, to achieve this would be difficult: in the case of a single vote, ta
 would reveal the candidate for which it was cast. But if a secret \emph{must} be kept, it is
 worthwhile to take precautions to minimize risk of compromise.
 
-In both Scantegrity and Helios, the most fundamental secret is a key. In Scantegrity, this is the
-seed to the pseudorandom number generator used to create Table P; and in Helios, it is a single
+In both \term{Scantegrity} and \term{Helios}, the most fundamental secret is a key. In \term{Scantegrity}, this is the
+seed to the pseudorandom number generator used to create Table P; and in \term{Helios}, it is a single
 ElGamal key pair used for all encryption/decryption operations during a particular election.
 
-The random seed in Scantegrity is a secret that is shared among a group of members of the election
+The random seed in \term{Scantegrity} is a secret that is shared among a group of members of the election
 authority, thereby mitigating risk of compromise.
 
-But in Helios, there is a single private ElGamal key that lives on the server. The
-authors of Helios acknowledge this weakness but choose to overlook it, as they aim to make
+But in \term{Helios}, there is a single private ElGamal key that lives on the server. The
+authors of \term{Helios} acknowledge this weakness but choose to overlook it, as they aim to make
 verifiable voting an accessible technology, even with some costs.
 
 Furthermore, with each of these systems, voters must \emph{still} place a significant level of trust
 in the body holding the election. This is the issue with secrets: \emph{someone} must keep them, and
-we must place some trust in that party. In Scantegrity, for example, we must assume that we can
+we must place some trust in that party. In \term{Scantegrity}, for example, we must assume that we can
 trust at least enough of the secret holders so that the seed cannot be obtained and used
 inappropriately.
 
@@ -674,17 +676,17 @@ today to require each voter to maintain her own key pair.
 
 \subsection{Randomness}
 
-It is clear that Scantegrity's secrets -- Tables P and R -- are generated using a source of true
+It is clear that \term{Scantegrity}'s secrets -- Tables P and R -- are generated using a source of true
 randomness. If there is any determinism in generating those tables, an attacker could exploit the
-generation method to violate privacy. Helios, on the other hand, was designed with application in
+generation method to violate privacy. \term{Helios}, on the other hand, was designed with application in
 mind and therefore uses standard cryptographic techniques (ElGamal and SHA-1).
 
-Given a flawless implementation of Scantegrity as specified in research, it can certainly provide the
+Given a flawless implementation of \term{Scantegrity} as specified in research, it can certainly provide the
 security it claims. However, we note that an amateur implementation of the protocol laid out by
-Scantegrity's creators -- e.g., one that uses a imperfect source of randomization -- could lead to a
+\term{Scantegrity}'s creators -- e.g., one that uses a imperfect source of randomization -- could lead to a
 very insecure system.
 
-The same can be said for Helios, should it be implemented with inappropriate primitives (not ElGamal
+The same can be said for \term{Helios}, should it be implemented with inappropriate primitives (not ElGamal
 and SHA-1); however, as the authors have designed the scheme with particular primitives in mind, its
 specification is less open to interpretation and, therefore, potentially harmful choices.
 
