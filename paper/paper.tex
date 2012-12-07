@@ -266,8 +266,12 @@ We further discuss this process in our analysis.
 
 \section{\pv{}}
 
-\pv\ aims to offer a familiar, in-person voting experience while providing cryptographic assurance of
+\pv\ also aims to offer a familiar, in-person voting experience while providing cryptographic assurance of
 a fair election.
+
+\subsection{Before voting}
+
+The paper ballot form in \pv\ consists of two separable sides. The left-hand side lists the candidates in permuted order. A mark on the right-hand side in an initially empty slot adjacent to a candidate indicates a vote for that candidate. In addition to the recorded vote, the right-hand side also includes the so-called ``onion'', an encryption of the ballot's particular candidate permutation. See Figure \ref{fig:preta} for a depiction of the ballot form.
 
 \begin{figure}
 	\center
@@ -275,6 +279,19 @@ a fair election.
 	\caption{\pv{} ballot}
 	\label{fig:preta}
 \end{figure}
+
+\todo{Discuss variants (decryption mixnets, reencryption mixnets) on how to generate the encrypted permutations.}
+
+\subsection{Voting}
+
+Upon arriving at the polling place, a voter receives one or more ballots. She chooses one of her ballots forms at random and privately marks her vote on the right-hand side. She detaches her cast vote from the corresponding candidate list on the left-hand side, which is subsequently destroyed. Her cast vote is scanned into and recorded by the system, which prints a digital signature on the now recorded ballot to constitute a receipt. The voter retains this receipt to later verify that her vote appears correctly in the tally.
+
+The voter can optionally request an audit of her other ballot(s) to test that the decrypted onion on the right-hand side in fact corresponds to the ordering of candidates printed on the left-hand side. Once audited, a ballot can no longer be cast. Independent auditing authorities may also randomly choose uncast ballots to audit throughout the election process to provide further assurance.
+
+\subsection{After voting}
+A publicly-available bulletin board publishes all recorded votes, i.e., the right-hand sides of each cast ballot, including its onion and vote as recorded. A voter can then verify that her vote was correctly recorded by checking that her receipt matches the information displayed on the bulletin board.
+
+\todo{Tallying the vote}
 
 \todo{Fill in.}
 
