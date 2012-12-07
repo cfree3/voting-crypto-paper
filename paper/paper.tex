@@ -333,8 +333,6 @@ Note that this ballot form supports alternative voting methods, such as Condorce
 
 Presenting candidates in a different, random order on each ballot conceals the voter's choice of candidates, as long as the process of decrypting the vote hides the correlation between ballot and voter (see below).
 
-\todo{Discuss variants (decryption mixnets, reencryption mixnets) on how to generate the encrypted permutations ?????}
-
 \subsection{Voting}
 
 Upon arriving at the polling place, a voter receives one or more ballots.
@@ -355,7 +353,9 @@ A voter can then verify that her vote was correctly recorded by checking that he
 Once all votes have been cast and recorded, the election authority mixes, decrypts, and tallies the votes to determine the winners while maintaining ballot secrecy.
 Mixing the encrypted votes before or during the decryption process (depending on the \pv\ variant) ensures the votes remain anonymous, even to the officials performing the encryption, by preventing discovery of any match between a particular encrypted vote and its decrypted counterpart.
 
-\pv\ accomplishes this process via a \term{mixnet}: a set of mix servers each secretly shuffle and transform, in turn, the set of encrypted votes in a verifiable way. Scratch \& Vote \cite{scratch}, a variation on \pv, tallies the votes homomorphically rather than with a mixnet.
+\pv\ accomplishes this process via a \term{mixnet}: a set of mix servers each secretly shuffle and transform, in turn, the set of encrypted votes in a verifiable way.
+\pv\ is flexible enough to use either a decryption or reencryption mixnet, and with the latter, a variety of encryption schemes.
+Scratch \& Vote \cite{scratch}, a variation on \pv, tallies the votes homomorphically rather than with a mixnet.
 
 \section{Helios}
 
