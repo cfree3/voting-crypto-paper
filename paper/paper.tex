@@ -197,16 +197,16 @@ she has cast a particular vote, she is necessarily unable to prove it.
 Coercion resistance means that secrecy is maintained even if interaction
 with the coercer is allowed throughout the voting process.
 The distinction between receipt-freeness and coercion resistance is subtle,
-and is commonly often lost in ambiguity due to a lack of formal definitions. \cite{delaune}
+and is commonly often lost in ambiguity due to a lack of formal definitions \cite{delaune}.
 In some verifiable voting systems, receipt-freeness directly implies coercion resistance,
 but this is not necessarily the case.
 
 Even in a receipt-free system,
 if the voting process involves a multi-step iteraction involving the coercer,
 it may be possible for the voter to prove to the coercer that she is following
-some protocol. \cite{delaune}
+some protocol \cite{delaune}.
 A simple example that is common to many proposed voting systems is
-the \term{Italian attack}. \cite{preta}
+the \term{Italian attack} \cite{preta}.
 This problem arises when the ballot contains a large number of voting options,
 such as a ranked election in which the number of possibilities grows as the
 factorial of the number of candidates.
@@ -219,7 +219,7 @@ communicates the resulting permutation $\pi$ to the voter.
 $c_1, c_{\pi(2)}, c_{\pi(3)}, \ldots$.
 \item The coercer, seeing the resulting ballot in the published list of votes,
 is assured that it was cast by the voter with probability
-$\ge 1 - \frac{1}{(n-1)!}$.
+$\ge 1 - \frac{v}{(n-1)!}$, where $v$ is the number of voters.
 \end{enumerate}
 
 \section{Scantegrity}
