@@ -75,6 +75,14 @@ it is here where we may fruitfully apply cryptography to ensure honesty. Researc
 yielded a number of candidate systems that replace or accompany existing voting procedures to provide
 fairness guarantees while maintaining ballot secrecy.
 
+An election involves an information exchange between many independent \term{voters} and a single
+\term{election authority}.
+In a \term{verifiable} election, each voter may verify that her own vote was counted correctly
+by the election authority.
+A voter, or any other third party \term{auditor}, may also verify the accuracy of the final vote tallies
+reported by the election authority \cite{preta}.
+Voting is complicated by the requirement that all votes remain secret to avoid coercion.
+
 In this survey, we study three of the most well-known solutions: the in-person voting systems
 \term{Scantegrity} and \term{\pv{}} and the online voting system \term{Helios}.
 
@@ -83,14 +91,6 @@ strive to satisfy. Second, we describe each of the three voting schemes in turn.
 analyze their differing approaches to security and how well they achieve the desired goals. Finally,
 we present some ideas that are not -- but perhaps should be -- considered by these schemes, and
 we draw conclusions about the role of these schemes in elections today and in the future.
-
-An election involves an information exchange between many independent \term{voters} and a single
-\term{election authority}.
-In a \term{verifiable} election, each voter may verify that her own vote was counted correctly
-by the election authority.
-A voter, or any other third party \term{auditor}, may also verify the accuracy of the final vote tallies
-reported by the election authority \cite{preta}.
-Voting is complicated by the requirement that all votes remain secret to avoid coercion.
 
 \section{Verifiability}
 
