@@ -231,7 +231,7 @@ rely on fill-in ballots processed via optical scan.
 \subsection{Before voting}
 
 Before an election is held, the election authority must construct four Tables that lie at the core
-of the Scantegrity system: Tables P, Q, R, and S.
+of the Scantegrity system: Tables P, Q, R, and S (see ~\ref{fig:scantegrity}).
 
 Some selection of officials conducting the election use a secret-sharing scheme to protect a
 secret pseudorandom number generator key. Table P lists every ballot that will be produced for the
@@ -621,20 +621,6 @@ per-precinct can reveal ``stuffing'' should the number of ballots being reported
 precinct/polling location be significantly higher than expected \cite{helios}.
 
 \section{Other considerations}
-
-\subsection{Clever attacks on verifiable voting systems}
-
-Scantegrity \emph{II} claims to solve some issues with other/previous systems:
-\begin{itemize}
-	\item
-		\term{Pattern voting} and
-	\item
-		\term{Randomization attacks}, whereby it's possible to tell whether a ballot is actually random
-		or is ``biased.''
-\end{itemize}
-
-\todo{How much should we discuss here? What I said is very incomplete, but the Scantegrity II paper
-doesn't say much more on the subject (instead deferring to other readings).}
 
 \subsection{Voter involvement}
 
