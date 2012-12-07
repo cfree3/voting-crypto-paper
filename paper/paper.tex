@@ -48,14 +48,15 @@
 \twocolumn[
 \maketitle
 \begin{onecolabstract}
-
+  \begin{quote}\begin{quote}\begin{quote}
   Current election processes do not allow participants to verify the accuracy of vote counting.
   Applied cryptography research has yielded a number of candidate systems that replace or accompany
   existing voting procedures to provide fairness guarantees while maintaining ballot secrecy. We
 	detail security properties necessary to make an election both ``fair'' and ``secret'' and analyze
 	how three popular verifiable voting systems -- Scantegrity, \pv{}, and Helios --
 	use cryptographic techniques to meet those goals.
-    \vspace{1em}
+	\end{quote}\end{quote}\end{quote}
+  \vspace{1em}
 \end{onecolabstract}
 ]
 
@@ -318,7 +319,7 @@ a fair election.
 The paper ballot form in \pv\ consists of two separable sides.
 The left-hand side lists the candidates in permuted order.
 A mark on the right-hand side in an initially empty slot adjacent to a candidate indicates a vote for that candidate.
-In addition to the recorded vote, the right-hand side also includes the so-called ``onion'', an encryption of the ballot's particular candidate permutation.
+In addition to the recorded vote, the right-hand side also includes the \term{onion}, an encryption of the ballot's particular candidate permutation.
 See Figure \ref{fig:preta} for a depiction of the ballot form.
 
 \begin{figure}
