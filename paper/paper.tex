@@ -266,12 +266,14 @@ We further discuss this process in our analysis.
 
 \section{\pv{}}
 
-\pv\ also aims to offer a familiar, in-person voting experience while providing cryptographic assurance of
+\pv\ \cite{preta} also aims to offer a familiar, in-person voting experience while providing cryptographic assurance of
 a fair election.
 
 \subsection{Before voting}
 
 The paper ballot form in \pv\ consists of two separable sides. The left-hand side lists the candidates in permuted order. A mark on the right-hand side in an initially empty slot adjacent to a candidate indicates a vote for that candidate. In addition to the recorded vote, the right-hand side also includes the so-called ``onion'', an encryption of the ballot's particular candidate permutation. See Figure \ref{fig:preta} for a depiction of the ballot form.
+
+Note that this ballot form supports alternative voting methods, such as Condorcet and Single Transferable Vote, in which voters rank candidates in order of preference rather than voting for a single candidate.
 
 \begin{figure}
 	\center
