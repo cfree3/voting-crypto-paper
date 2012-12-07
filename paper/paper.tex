@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{microtype}
+\usepackage{amsmath}
 \nonstopmode
 
 % don't highlight links
@@ -24,6 +25,7 @@
 \newcommand{\sub}[1]{\textsubscript{#1}}
 \newcommand{\preta}{Pr\^{e}t \`{a}}
 \newcommand{\pv}{\preta{} Voter}
+\newcommand{\abs}[1]{\ensuremath{\left\vert#1\right\vert}}
 
 % title
 \title{Cryptographic assurance of secrecy and fairness in voting}
@@ -139,6 +141,10 @@ in any particular way.
 \cite{delaune} enumerates a hierarchy of ballot secrecy definitions.
 In order of increasing strength, they are
 \term{privacy}, \term{receipt-freeness}, and \term{coercion resistance}.
+Countries such as the United States hold voting privacy as a fundamental right,
+and under traditional voting systems, privacy implies coercion resistance.
+For more complicated systems, however, we will need to explicitly discuss
+stronger formalizations of coercibility.
 
 \subsection{Privacy}
 
@@ -148,43 +154,72 @@ In a verifiable voting system, the system includes the verification process.
 So in addition to casting a vote in private, the voter must also be able to
 audit her vote without revealing its content.
 
+A tempting notion of privacy would be to suggestion that it ought to be impossible
+to determine any fact about a voter's vote. As \cite{preta} notes, however,
+this is impossible to achieve, as demonstrated by the case of a unanimous election,
+in which case every vote is trivially known.
 \cite{kremer} gives an \term{observational equivalence} definition of privacy:
 An election system is private if an attacker, having access to the public
 information published by the polling authority, ``cannot distinguish
 the actual situation from one in which two voters have swapped their votes.''
+This notion is formalized using a process calculus such as the pi calculus.
 
-% For all pairs of voters $v_1$, $v_2$ ...
+Another intuition which we will find useful in discussion of the Scantegrity II system is:
+Assume a list of votes $a_1, a_1, \ldots, a_n$ is public, and the mapping between
+voters and votes is described by a secret permutation $\pi_k$ such that the vote
+belonging to voter $v_i$ is $a_{\pi_k(i)}$.
+As long as an attacker cannot gain information about $\pi_k$,
+the system reveals no more information than is implies by an anonymized list of votes.
+
+Note that privacy does not necessarily imply that votes are hidden from the election
+authority. In some developing states where corruption is prevalent, this may be desirable,
+again for the purpose of limiting coercibility.
+This requirement is significantly more restrictive, however, and is not addressed by
+any systems under our discussion.
 
 \subsection{Receipt-freeness}
 
-\subsection{Coercion resistance}
-
-\subsection{Stuff that will be moved into one of the previous sections}
-
-Countries such as the United States hold as a fundamental right that voting can be performed
-in secret to reduce the possibility of voter coercion from any private entities.
-In some developing states where corruption is prevalent, it may be desirable keep an
-individual's vote hidden even from the election authority, again for the reason of
-limiting coercibility. The latter goal is significantly more restrictive.
-
-Ballot secrecy, often referred to as \term{receipt-freeness}, is perhaps the most complicated
-security goal to address in a verifiable voting system.
+With conventional in-person voting, privacy provided by physical security imposed
+at polling locations is sufficient to ensure secrecy.
+A party who cannot \emph{watch} a voter cast a ballot and cannot know what vote
+was cast, because traditional systems have no need to retain any information
+beyond the vote itself.
+Receipt-freeness, however, is a complication added by verifiable voting system.
 Secrecy and verifiability are naturally at odds, and only through cryptography can we
 reconcile these two requirements.
 
-Amidst these other goals, it becomes difficult to prevent \term{coercion}: the ability of some party
-to coerce a voter to vote for a particular candidate.
+Receipt-freeness implies that even if a voter wants to tell a coercer that
+she has cast a particular vote, she is necessarily unable to prove it.
 
-With conventional in-person voting, coercion is thwarted to some extent by the physical security
-imposed at polling locations: a party cannot \emph{watch} a voter cast a ballot and so cannot rest
-assured that the voter did as told.
+\subsection{Coercion resistance}
 
-Though ballot secrecy prevents such a party from determining that a voter has done as asked, it is a
-different problem to ensure that even the voter herself cannot prove that her ballot was
-cast a certain way. We show, in describing these systems, that the cryptographic techniques
-used to provide ballot secrecy also ensure -- in the case of in-person elections -- that a voter
-cannot prove her ballot was cast a certain way even with the data necessarily exposed to provide
-verifiability.
+Coercion resistance means that secrecy is maintained even if interaction
+with the coercer is allowed throughout the voting process.
+The distinction between receipt-freeness and coercion resistance is subtle,
+and is commonly often lost in ambiguity due to a lack of formal definitions. \cite{delaune}
+In some verifiable voting systems, receipt-freeness directly implies coercion resistance,
+but this is not necessarily the case.
+
+Even in a receipt-free system,
+if the voting process involves a multi-step iteraction involving the coercer,
+it may be possible for the voter to prove to the coercer that she is following
+some protocol. \cite{delaune}
+A simple example that is common to many proposed voting systems is
+the \term{Italian attack}. \cite{preta}
+This problem arises when the ballot contains a large number of voting options,
+such as a ranked election in which the number of possibilities grows as the
+factorial of the number of candidates.
+If the voter and coercer have one interaction prior to voting,
+they can follow this protocol:
+\begin{enumerate}
+\item A coercer who favors candidate $c_1$ randomly permutes $[2, n]$ and
+communicates the resulting permutation $\pi$ to the voter.
+\item The voter casts a ballot ranking candidates in the order
+$c_1, c_{\pi(2)}, c_{\pi(3)}, \ldots$.
+\item The coercer, seeing the resulting ballot in the published list of votes,
+is assured that it was cast by the voter with probability
+$\ge 1 - \frac{1}{(n-1)!}$.
+\end{enumerate}
 
 \section{Scantegrity}
 
