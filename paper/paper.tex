@@ -1,12 +1,12 @@
 % paper.tex | CS 6260 - "Vendetta" Paper
 
 % setup
-\documentclass[10pt]{article}
+\documentclass[10pt,twocolumn]{article}
+\usepackage{abstract}
 \usepackage{color}
 \usepackage{enumerate}
 \usepackage{fullpage}
 \usepackage{hyperref}
-\usepackage{multicol}
 \usepackage{microtype}
 
 % don't highlight links
@@ -38,11 +38,11 @@
 
 % document
 \begin{document}
-\maketitle
-
 \thispagestyle{empty}
 
-\begin{abstract}
+\twocolumn[
+\maketitle
+\begin{onecolabstract}
 
   Current election processes do not allow participants to verify the accuracy of vote counting.
   Applied cryptography research has yielded a number of candidate systems that replace or accompany
@@ -51,9 +51,8 @@
 	how three popular verifiable voting systems -- Scantegrity, \pv{}, and Helios --
 	use cryptographic techniques to meet those goals.
 
-\end{abstract}
-
-\begin{multicols}{2}
+\end{onecolabstract}
+]
 
 \section{Introduction}
 
@@ -601,8 +600,6 @@ addressed by these systems at all but do lay groundwork for further research.
 
 \bibliographystyle{IEEEtran}
 \bibliography{paper}
-
-\end{multicols}
 
 \end{document}
 
