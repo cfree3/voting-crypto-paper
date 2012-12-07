@@ -321,9 +321,9 @@ See Figure \ref{fig:preta} for a depiction of the ballot form.
 
 Note that this ballot form supports alternative voting methods, such as Condorcet and Single Transferable Vote, in which voters rank candidates in order of preference rather than voting for a single candidate.
 
-Presenting candidates in a different, random order on each ballot conceals the voter's choice of candidates, as long as the process of decrypting the vote hides the correlation between ballot and voter.
+Presenting candidates in a different, random order on each ballot conceals the voter's choice of candidates, as long as the process of decrypting the vote hides the correlation between ballot and voter (see below).
 
-\todo{Discuss variants (decryption mixnets, reencryption mixnets) on how to generate the encrypted permutations.}
+\todo{Discuss variants (decryption mixnets, reencryption mixnets) on how to generate the encrypted permutations ?????}
 
 \subsection{Voting}
 
@@ -342,9 +342,10 @@ Independent auditing authorities may also randomly choose uncast ballots to audi
 A publicly-available bulletin board publishes all recorded votes, i.e., the right-hand sides of each cast ballot, including its onion and vote as recorded.
 A voter can then verify that her vote was correctly recorded by checking that her receipt matches the information displayed on the bulletin board.
 
-\todo{Tallying the vote}
+Once all votes have been cast and recorded, the election authority mixes, decrypts, and tallies the votes to determine the winners while maintaining ballot secrecy.
+Mixing the encrypted votes before or during the decryption process (depending on the \pv\ variant) ensures the votes remain anonymous, even to the officials performing the encryption, by preventing discovery of any match between a particular encrypted vote and its decrypted counterpart.
 
-\todo{Fill in.}
+\pv\ accomplishes this process via a \term{mixnet}: a set of mix servers each secretly shuffle and transform, in turn, the set of encrypted votes in a verifiable way. Scratch \& Vote \cite{scratch}, a variation on \pv, tallies the votes homomorphically rather than with a mixnet.
 
 \section{Helios}
 
