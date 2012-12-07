@@ -484,7 +484,8 @@ privacy would be compromised for half of all voters.
 Where Table R lies between encryptions and decryptions in Scantegrity, Helios makes use of a
 cryptographic \term{mixnet} -- performed with cast ballots in hand -- to prevent an attacker from
 tracing a vote to its decryption. Unlike in Scantegrity, \emph{all} encrypted votes can be traced to
-their mixnet input, and \emph{all} mixnet outputs can be traced to a location in the tally.
+their mixnet input, and \emph{all} mixnet outputs can be traced to a location in the tally; however,
+those one cannot connect those two traces, such that secrecy is preserved.
 
 At a high level, the difference between these two schemes is in the number of mappings that must be
 kept secret in order to ensure ballot secrecy. In Scantegrity, Table R has one mapping to Table Q
