@@ -7,4 +7,7 @@
 *.out
 *.pyg
 *.swp
+*.maf
+*.mtc
+*.mtc0
 paper.pdf
