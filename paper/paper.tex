@@ -529,30 +529,50 @@ the final tally, as this would reveal the candidate for which the ballot was cas
 systems verify the accuracy of their counting indirectly by instilling in auditors confidence that
 the tallying mechanisms are correct.
 
-Scantegrity relies on unused \term{audit ballots} to prove that its Tables Q, R, and S accurately
-match ballot selections with the proper candidates. These ballots come in two forms: a group of
-ballots randomly selected and checked prior to the election by members of the election authority;
-and the collection of optional secondary ballots that are offered to voters.
+One source of vote auditing in Scantegrity relies on unused \term{audit ballots} to prove that its
+Tables Q, R, and S accurately match ballot selections with the proper candidates. These ballots come
+in two forms: a group of ballots randomly selected and checked prior to the election by members of
+the election authority; and the collection of optional secondary ballots that are offered to voters.
 
-Auditing is then performed by revealing all bubble codes on the ballots and uncovering the entire
-R-to-S mapping in Table Q for all rows corresponding to those revealed codes. An auditor then
-manually examine the revealed information and ensure that, had a code been revealed as on a counted
-ballot, the tally would have been affected appropriately. Note that this method of verification is
-indirect in that it does not allow \emph{any} of the ballots that are cast during the election to be
-verified, for reasons previously stated. Rather, it is expected that the random selection of ballots
-beforehand, along with the selection of ballots chosen by voters as audit ballots, is a sufficient
-sample to detect improper counting. Thus, if these checks past, it is accepted that all other
-ballots must also be counted properly.
+This auditing is then performed by revealing all bubble codes on those audit ballots and uncovering the
+entire R-to-S mapping in Table Q for all rows corresponding to those revealed codes. An auditor then
+manually examines the revealed information to ensure that, had a code been revealed as on a counted
+ballot, the tally would have been affected appropriately.
+
+Secondly, recall that for each row in Table R that does not represent an audit ballot, only half of
+the Q-to-S mapping is revealed; \emph{which} half is uncovered is chosen randomly. This prevents an
+auditor from mapping any cast ballot to its chosen candidate, but it permits \emph{partial}
+verification by allowing an observer to note that the following are true:
+\begin{itemize}
+	\item
+		If a row in Table R is \textbf{checked} and its mapping to Table Q is revealed, then the
+		corresponding cell in Table Q has a \textbf{revealed} confirmation code (indicating that the
+		code was revealed on a ballot).
+	\item
+		If a row in Table R is \textbf{unchecked} and its mapping to Table Q is revealed, then the
+		corresponding cell in Table Q has a \textbf{hidden} confirmation code (indicating that the code
+		was \emph{not} revealed on a ballot).
+	\item
+		If a row in Table R is \textbf{checked} and its mapping to Table S is revealed, then the
+		corresponding cell in Table S is \textbf{checked} (indicating an addition to a candidate's
+		tally).
+	\item
+		If a row in Table R is \textbf{unchecked} and its mapping to Table S is revealed, then the
+		corresponding cell in Table S is \textbf{unchecked} (indicating \emph{no} addition to a
+		candidate's tally).
+\end{itemize}
+This technique -- verifying a random partial sample of the data -- is called \term{random partial
+checking}. If these checks past, it is accepted that all other ballots must also be counted properly.
 
 It is important to note that in order for this assurance to hold, the predetermined Tables cannot be
 modified after they are initially created (prior to \emph{any} auditing). Through some means, the
 election authority must therefore \term{commit} to the predetermined tables such that any change to
 the data is either impossible or detectable.
 
-In some ways, count verification is simpler than that in Scantegrity. We have already discussed how
-Helios uses a mixnet to achieve ballot secrecy. Once votes have been mixed using this mechanism,
-they are decrypted, and so the actual plaintext ballots are exposed. From that point, tallying is
-straightforward.
+In some ways, Helios count verification is simpler than that in Scantegrity. We have already
+discussed how Helios uses a mixnet to achieve ballot secrecy. Once votes have been mixed using this
+mechanism, they are decrypted, and so the actual plaintext ballots are exposed. From that point,
+tallying is straightforward.
 
 \subsection{Coercion prevention}
 
