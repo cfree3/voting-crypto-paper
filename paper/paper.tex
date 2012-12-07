@@ -351,7 +351,7 @@ A publicly-available bulletin board publishes all recorded votes, i.e., the righ
 A voter can then verify that her vote was correctly recorded by checking that her receipt matches the information displayed on the bulletin board.
 
 Once all votes have been cast and recorded, the election authority mixes, decrypts, and tallies the votes to determine the winners while maintaining ballot secrecy.
-Mixing the encrypted votes before or during the decryption process (depending on the \pv\ variant) ensures the votes remain anonymous, even to the officials performing the encryption, by preventing discovery of any match between a particular encrypted vote and its decrypted counterpart.
+Mixing the encrypted votes before or during the decryption process (depending on the \pv\ variant) ensures the votes remain anonymous -- even to the officials performing the encryption -- by preventing discovery of any match between a particular encrypted vote and its decrypted counterpart.
 
 \pv\ accomplishes this process via a \term{mixnet}: a set of mix servers each secretly shuffle and transform, in turn, the set of encrypted votes in a verifiable way.
 \pv\ is flexible enough to use either a decryption or reencryption mixnet, and with the latter, a variety of encryption schemes.
@@ -468,7 +468,7 @@ attacked. Compromise of keys in either system would destroy their privacy guaran
 
 \subsubsection{Mixing}
 
-Essentially, both Scantegrity and Helios use some mechanism to ``shuffle'' votes so that -- even
+Essentially, each of these system uses some mechanism to ``shuffle'' votes so that -- even
 with votes decrypted for tallying -- encrypted ballots cannot be linked to their plaintext
 counterparts.
 
@@ -481,7 +481,7 @@ simply decrypt encrypted votes with no attention giving to Table R. Should the m
 \emph{either} size of Table R to votes in Table Q \emph{or} tallies in Table S be deterministic,
 privacy would be compromised for half of all voters.
 
-Where Table R lies between encryptions and decryptions in Scantegrity, Helios makes use of a
+Where Table R lies between encryptions and decryptions in Scantegrity, \pv\ and Helios make use of a
 cryptographic \term{mixnet} -- performed with cast ballots in hand -- to prevent an attacker from
 tracing a vote to its decryption. Unlike in Scantegrity, \emph{all} encrypted votes can be traced to
 their mixnet input, and \emph{all} mixnet outputs can be traced to a location in the tally.
@@ -499,14 +499,21 @@ fulfillment of other goals, such as \emph{verifiability}.
 
 \subsection{Verifiable recording}
 
-At the time a ballot is cast, both Scantegrity and Helios attempt to ensure a voter that her
+At the time a ballot is cast, these systems attempt to ensure a voter that her
 vote is recorded exactly as intended.
 
 In Scantegrity, this verification is rolled into the ballot casting process. After recording the
 receipt herself, a voter can visually check that the code on the receipt matches the candidates
 selected on the ballot.
 
-Helios does not actually permit a voter to verify the ballot that she actually casts. Rather, it
+\pv\ provides each voter with multiple ballots, one of which she actually casts, and the others
+she can audit to verify that the candidate permutation on the left-hand side corresponds to the one
+encoded in the onion on the right-hand side. Audited ballots cannot be cast, but since she chooses
+her actual ballot at random, if her audited ballots verify, she gains some confidence that
+her real ballot would as well. Auditing authorities also verify randomly selected ballots before,
+during, and after polling to garner further assurance.
+
+Like \pv, Helios does not actually permit a voter to verify the ballot that she actually casts. Rather, it
 allows users to verify a ballot without casting it (after which point it cannot be cast without
 a new encryption). The assumption here is that \emph{some} voter will choose to audit a ballot, and
 so the system cannot simply cheat and show the user a predetermined hash: it \emph{must} be a valid
