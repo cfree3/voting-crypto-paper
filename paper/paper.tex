@@ -6,8 +6,10 @@
 \usepackage{color}
 \usepackage{enumerate}
 \usepackage{fullpage}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{microtype}
+\nonstopmode
 
 % don't highlight links
 \hypersetup{hidelinks}
@@ -298,11 +300,20 @@ Once all ballots have been collected by the Helios server, they are shuffled by 
 ``mixnet.'' \todo{We should discuss re-encryption details, which are covered in the Helios paper.
 Maybe we cover the details in the \pv{} Voter discussion?}
 
+\begin{figure}
+	\center
+	\includegraphics[width=0.8\columnwidth]{mixnet.pdf}
+	\caption{A re-encryption \term{mixnet}}
+	\label{fig:mixnet}
+	\vspace{-25pt}
+\end{figure}
+
 The ``mixnet'' accomplishes two goals: it shuffles the votes \emph{and} re-encrypts them (with the
 same key, but with different random inputs). A random permutation -- referred to as $\pi_{N}$ (where
 $N$ is the total number of votes) -- is first used to perform the shuffle. Each ciphertext
 $c_{i}$ is then ``re-encrypted'' to a new ciphertext $d_{i}$ that equivalent to the first \emph{had
-the random input at encrypt time been different} by a particular amount $s_{i}$.
+the random input at encrypt time been different} by a particular amount $s_{i}$. See Figure
+~\ref{fig:mixnet} for a visual depiction of this process.
 
 The ``shuffling'' is important because it prevents an attacker from linking a decrypted ballot with
 a particular encrypted ballot -- and thus a voter. Re-encryption means that an auditor examining a
