@@ -277,14 +277,16 @@ A mark on the right-hand side in an initially empty slot adjacent to a candidate
 In addition to the recorded vote, the right-hand side also includes the so-called ``onion'', an encryption of the ballot's particular candidate permutation.
 See Figure \ref{fig:preta} for a depiction of the ballot form.
 
-Note that this ballot form supports alternative voting methods, such as Condorcet and Single Transferable Vote, in which voters rank candidates in order of preference rather than voting for a single candidate.
-
 \begin{figure}
 	\center
 	\includegraphics[width=\columnwidth]{images/include/preta.pdf}
 	\caption{\pv{} ballot}
 	\label{fig:preta}
 \end{figure}
+
+Note that this ballot form supports alternative voting methods, such as Condorcet and Single Transferable Vote, in which voters rank candidates in order of preference rather than voting for a single candidate.
+
+Presenting candidates in a different, random order on each ballot conceals the voter's choice of candidates, as long as the process of decrypting the vote hides the correlation between ballot and voter.
 
 \todo{Discuss variants (decryption mixnets, reencryption mixnets) on how to generate the encrypted permutations.}
 
