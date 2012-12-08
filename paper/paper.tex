@@ -493,10 +493,9 @@ those one cannot connect those two traces, such that secrecy is preserved.
 At a high level, the difference between these two schemes is in the number of mappings that must be
 kept secret in order to ensure ballot secrecy. In \term{Scantegrity}, Table R has one mapping to Table Q
 and a second to Table S, and neither of these can be compromised to ensure secrecy for all ballots.
-But in \term{Helios}, use of a cryptographic mixnet means that both inputs and outputs can be mapped to
-voters and tallies, respectively, without revealing the inner mapping. In some ways, \term{Helios}'s
-approach accomplishes the same goals as \emph{but} is implemented as an antithesis of \term{Scantegrity}'s
-Table system.
+But in \term{\pv{}} and \term{Helios}, use of a cryptographic mixnet means that both inputs and outputs can be mapped to
+voters and tallies, respectively, without revealing the inner mapping. While accomplishing the same
+goals as \term{Scantegrity}'s Table system, this approach is in some ways its antithesis.
 
 \subsection{Verifiable recording}
 
