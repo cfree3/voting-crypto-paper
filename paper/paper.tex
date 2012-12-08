@@ -619,6 +619,12 @@ the person for having voted a certain way). This is akin to keeping Table P a se
 together \emph{are} Table P, and using special ink allows the codes to be printed without making it
 easy for a ballot handler to simple read Table P from the ballots prior to the election.
 
+\term{\pv{}} acknowledges that it generally only provides receipt-freeness and thus voter privacy, but fails to
+truly resist coercion. It offers receipt-freeness, despite providing voters with a receipt, because a voter
+cannot use her receipt to prove for whom she voted. Absent perfect physical security, though, coercion may still be possible
+by, for example, sneaking complete, blank ballot forms out of the polling place, recording the candidate list ordering and onion on each,
+giving the forms to other voters to sneak in and use to vote, and then requiring those voters to show that their signed receipt, matched with the now-known candidate ordering, indicates they voted as instructed.
+
 \term{Helios}, which is designed for use in an online setting, has no illusions about coercion: in fact,
 the public implementation makes it clear to voters that they would be easy to coerce. Setting
 physical security aside: as with \term{Scantegrity}, \term{Helios} does not reveal to a voter all the
