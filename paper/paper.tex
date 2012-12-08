@@ -446,17 +446,26 @@ particular candidate for that ballot. Table P defines an explicit, keyless encry
 function -- and each ballot holds just enough information from Table P to encrypt a single voter's
 responses. (Alternatively, one can think of Table P as an encryption scheme definition wherein the
 ballot number is the key. However, the table is a collection of \emph{all the keys}, and its
-compromise would eliminate ballot secrecy for all ballots.)
+compromise would eliminate ballot secrecy for all ballots.) But it is important to note that this
+table can be reconstructed using the same pseudorandom number generator as during initial creation
+along with the (shared secret) generator seed.
 
 In \term{Helios}, the public ballot is a hash of an encryption. \term{Helios} uses ElGamal to encrypt ballots,
 which -- unlike \term{Scantegrity}'s core \emph{random} Table P -- could be subject to attack, given that
 ElGamal is a published encryption function. Similarly, \term{Helios} uses the standard SHA-1 hash algorithm
 to hash encrypted ballots. Note that we are not making a precise quantification about \term{Helios}'s
 security: rather, we simply note that the difference between these two systems can be thought of as
-a tradeoff between key size and privacy guarantees. \term{Scantegrity} essentially has an immensely large
-key that -- because it is theoretically completely random -- ensures that ciphertext cannot be
-decrypted. \term{Helios}, however, uses known algorithms with shorter keys that could potentially be
-attacked. Compromise of keys in either system would destroy their privacy guarantees.
+a tradeoff between key size and privacy guarantees.
+
+With \term{\pv{}}, the submitted ballot is really just a position within a permutation of the
+candidates. The \emph{position} within the permutation is not encrypted: rather, the candidate
+permutation is secret and can be obtained (later in the election process) from the onion.
+
+Considering the confirmation codes from a ballot, \term{Scantegrity} seems to have an immensely
+large key that -- because it is theoretically random -- ensures that ciphertext cannot be decrypted.
+But compromise of the much shorter generator seed could be used to obtain the same information.
+\term{Helios} and \term{\pv{}} more simply use known algorithms with secret keys. Key compromise
+would destroy the privacy guarantees of any of these systems.
 
 \subsubsection{Mixing}
 
@@ -503,7 +512,7 @@ her actual ballot at random, if her audited ballots verify, she gains some confi
 her real ballot would as well. Auditing authorities also verify randomly selected ballots before,
 during, and after polling to garner further assurance.
 
-Like \term{\pv{}}, \term{Helios} does not actually permit a voter to verify the ballot that she actually casts. Rather, it
+Like \term{\pv{}}, \term{Helios} does not permit a voter to verify the ballot that she actually casts. Rather, it
 allows users to verify a ballot without casting it (after which point it cannot be cast without
 a new encryption). The assumption here is that \emph{some} voter will choose to audit a ballot, and
 so the system cannot simply cheat and show the user a predetermined hash: it \emph{must} be a valid
