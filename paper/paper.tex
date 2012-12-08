@@ -454,12 +454,12 @@ In \term{Helios}, the public ballot is a hash of an encryption. \term{Helios} us
 which -- unlike \term{Scantegrity}'s core \emph{random} Table P -- could be subject to attack, given that
 ElGamal is a published encryption function. Similarly, \term{Helios} uses the standard SHA-1 hash algorithm
 to hash encrypted ballots. Note that we are not making a precise quantification about \term{Helios}'s
-security: rather, we simply note that the difference between these two systems can be thought of as
+security. Rather, we simply note that the difference between these two systems can be thought of as
 a tradeoff between key size and privacy guarantees.
 
-With \term{\pv{}}, the submitted ballot is really just a position within a permutation of the
-candidates. The \emph{position} within the permutation is not encrypted: rather, the candidate
-permutation is secret and can be obtained (later in the election process) from the onion.
+With \term{\pv{}}, the submitted ballot is the selected candidate's position within a permutation of
+the candidates. The \emph{position} within the permutation is not encrypted; rather, the permutation
+itself is secret and can be obtained (later in the election process) from the onion.
 
 Considering the confirmation codes from a ballot, \term{Scantegrity} seems to have an immensely
 large key that -- because it is theoretically random -- ensures that ciphertext cannot be decrypted.
