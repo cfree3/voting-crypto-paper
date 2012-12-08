@@ -75,6 +75,14 @@ it is here where we may fruitfully apply cryptography to ensure honesty. Researc
 yielded a number of candidate systems that replace or accompany existing voting procedures to provide
 fairness guarantees while maintaining ballot secrecy.
 
+An election involves an information exchange between many independent \term{voters} and a single
+\term{election authority}.
+In a \term{verifiable} election, each voter may verify that her own vote was counted correctly
+by the election authority.
+A voter, or any other third party \term{auditor}, may also verify the accuracy of the final vote tallies
+reported by the election authority \cite{preta}.
+Voting is complicated by the requirement that all votes remain secret to avoid coercion.
+
 In this survey, we study three of the most well-known solutions: the in-person voting systems
 \term{Scantegrity} and \term{\pv{}} and the online voting system \term{Helios}.
 
@@ -83,14 +91,6 @@ strive to satisfy. Second, we describe each of the three voting schemes in turn.
 analyze their differing approaches to security and how well they achieve the desired goals. Finally,
 we present some ideas that are not -- but perhaps should be -- considered by these schemes, and
 we draw conclusions about the role of these schemes in elections today and in the future.
-
-An election involves an information exchange between many independent \term{voters} and a single
-\term{election authority}.
-In a \term{verifiable} election, each voter may verify that her own vote was counted correctly
-by the election authority.
-A voter, or any other third party \term{auditor}, may also verify the accuracy of the final vote tallies
-reported by the election authority \cite{preta}.
-Voting is complicated by the requirement that all votes remain secret to avoid coercion.
 
 \section{Verifiability}
 
@@ -116,14 +116,13 @@ she cast is exactly what was considered during vote counting.
 
 \subsection{Verifiable counting}
 
-Once votes have been collected, it is the responsibility of the state to tally votes for the various
+Once votes have been collected, it is the responsibility of the election authority to tally votes for the various
 candidates in a race and publish \emph{accurate} tallies. Generally, the electorate is reliant on
 \emph{someone} to provide these tallies. But it is much less common for voters themselves to have
 the opportunity to verify that the votes were tallied \emph{exactly} as they were cast.
 
-These systems, however, allow publication of data sufficient to verify tallies. Relying on
-cryptography to ensure secrecy, each system involves exposure of cryptographically-hidden vote
-counts that can be used to ensure that -- given all votes cast -- the final tallies are correct.
+These systems, however, allow publication of data sufficient to verify tallies while relying on
+cryptography to ensure secrecy.
 
 \subsection{True cast ballots only}
 
@@ -356,7 +355,7 @@ Once all votes have been cast and recorded, the election authority mixes, decryp
 Mixing the encrypted votes before or during the decryption process (depending on the \term{\pv{}} variant) ensures the votes remain anonymous -- even to the officials performing the encryption -- by preventing discovery of any match between a particular encrypted vote and its decrypted counterpart.
 
 \term{\pv{}} accomplishes this process via a \term{mixnet}: a set of mix servers each secretly shuffle and transform, in turn, the set of encrypted votes in a verifiable way.
-\term{\pv{}} is flexible enough to use either a decryption or reencryption mixnet, and with the latter, a variety of encryption schemes.
+\term{\pv{}} is flexible enough to use either a decryption or re-encryption mixnet, and with the latter, a variety of encryption schemes.
 Scratch \& Vote \cite{scratch}, a variation on \term{\pv}, tallies the votes homomorphically rather than with a mixnet.
 
 \section{\term{Helios}}
@@ -406,18 +405,9 @@ a particular encrypted ballot -- and thus a voter. Re-encryption means that an a
 proof of proper decryption cannot determine how a particular voter cast her ballot by hashing
 all ciphertexts in the proof and matching those hashes to the publicly-posted encrypted vote hashes.
 
-In order to provide a guarantee of proper shuffling, \term{Helios} shuffles the votes multiple
-times, actually using only the final shuffle in tallying the results. The other shuffles,
-referred to as ``shadow mixes'', are made public. Those mixes are hashed to obtain a bit string
-that is used, bit-for-bit, as a set of challenges, with one bit value indicating that \term{Helios} must
-provide the permutation used for the shuffle and the $s_{i}$ values used for re-encryption, and the
-other bit value indicating that it must provide a mapping from one shadow mix to another. This is
-known as a challenge-response ``Honest-Verifier Zero-Knowledge'' proof, and the use of a hash to
-obtain the set of challenges allows this process to be completed entirely within the \term{Helios} system
--- without human involvement -- for publication and auditor verification.
-
-Once auditors are satisfied with the proofs, \term{Helios} decrypts and tallies the ballots. Similarly,
-\term{Helios} proves that ballot decryptions are accurate using a challenge-response zero-knowledge scheme
+Auditors are then provided with proofs for verification of proper mixing (see later analysis). Once
+auditors are satisfied, \term{Helios} decrypts and tallies the ballots. Similarly, \term{Helios}
+proves that ballot decryptions are accurate using a challenge-response zero-knowledge scheme
 known as the \term{Chaum-Pedersen protocol}, through which the system proves that \emph{all}
 decrypted ballots are in fact correct plaintexts for the corresponding mixnet outputs. Challenges
 are generated by the system using a technique similar to that employed to provide mixnet proofs.
@@ -470,7 +460,7 @@ attacked. Compromise of keys in either system would destroy their privacy guaran
 
 \subsubsection{Mixing}
 
-Essentially, each of these system uses some mechanism to ``shuffle'' votes so that -- even
+Essentially, each of these system uses some mechanism to shuffle votes so that -- even
 with votes decrypted for tallying -- encrypted ballots cannot be linked to their plaintext
 counterparts.
 
@@ -590,10 +580,30 @@ modified after they are initially created (prior to \emph{any} auditing). Throug
 election authority must therefore \term{commit} to the predetermined tables such that any change to
 the data is either impossible or detectable.
 
+\term{Helios} must prove to auditors that ballots have been properly mixed. To do so, \term{Helios}
+shuffles the votes multiple times, actually using only the final shuffle in tallying the results.
+The other shuffles, referred to as ``shadow mixes'', are made public. Those mixes are hashed to
+obtain a bit string that is used, bit-for-bit, as a set of challenges, with one bit value indicating
+that \term{Helios} must provide the permutation used for the shuffle and the $s_{i}$ values used for
+re-encryption, and the other bit value indicating that it must provide a mapping from one shadow mix
+to another. This is known as a challenge-response \term{Honest-Verifier Zero-Knowledge} proof, and the
+use of a hash to obtain the set of challenges allows this process to be completed entirely within
+the \term{Helios} system -- without human involvement -- for publication and auditor verification.
+
 In some ways, \term{Helios} count verification is simpler than that in \term{Scantegrity}. We have already
 discussed how \term{Helios} uses a mixnet to achieve ballot secrecy. Once votes have been mixed using this
 mechanism, they are decrypted, and so the actual plaintext ballots are exposed. From that point,
-tallying is straightforward.
+tallying is straightforward and trivially-verifiable via simple arithmetic.
+
+\term{\pv{}} provides for verification of counting using techniques seen in both \term{Scantegrity}
+and \term{Helios}: a mixnet proof based on randomized partial checking in which a random selection
+determines points in the mixnet for which a mix server must show how it has mixed a particular vote.
+Though it is not permitted for this selection to trace any one vote throughout the mixnet in order
+to preserve privacy, it provides sufficient proof that the overall mixnet has shuffled votes
+accurately.
+
+As with \term{Helios}, votes are decrypted after exiting the mixnet and can tallied in a
+trivially-verifiable manner.
 
 \subsection{Coercion prevention}
 
