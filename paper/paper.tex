@@ -442,7 +442,7 @@ Each of these systems provides ballot secrecy by performing a three-step process
 
 \subsubsection{Encryption}
 
-In both \term{Scantegrity} and \term{Helios}, the following information is revealed after the election:
+In all three systems, the following information is revealed after the election:
 \begin{itemize}
 	\item
 		\emph{Some} information about \emph{all} encrypted ballots, linked to voters.
@@ -483,7 +483,7 @@ simply decrypt encrypted votes with no attention giving to Table R. Should the m
 \emph{either} size of Table R to votes in Table Q \emph{or} tallies in Table S be deterministic,
 privacy would be compromised for half of all voters.
 
-Where Table R lies between encryptions and decryptions in \term{Scantegrity}, \term{\pv{}} and \term{Helios} makes use of a
+Where Table R lies between encryptions and decryptions in \term{Scantegrity}, \term{\pv{}} and \term{Helios} make use of a
 cryptographic \term{mixnet} -- performed with cast ballots in hand -- to prevent an attacker from
 tracing a vote to its decryption. Unlike in \term{Scantegrity}, \emph{all} encrypted votes can be traced to
 their mixnet input, and \emph{all} mixnet outputs can be traced to a location in the tally; however,
@@ -662,6 +662,9 @@ tallied properly without \emph{anyone} being able to reveal the candidate select
 Admittedly, to achieve this would be difficult: in the case of a single vote, tallying only that vote
 would reveal the candidate for which it was cast. But if a secret \emph{must} be kept, it is
 worthwhile to take precautions to minimize risk of compromise.
+
+In \term{\pv{}}, the secrets are the layered permutations of the candidate list corresponding to each ballot as encoded in its onion.
+During the tallying phase, the end-to-end mapping from encrypted to decrypted ballot must also be concealed from any single party.
 
 In both \term{Scantegrity} and \term{Helios}, the most fundamental secret is a key. In \term{Scantegrity}, this is the
 seed to the pseudorandom number generator used to create Table P; and in \term{Helios}, it is a single
