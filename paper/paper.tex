@@ -616,19 +616,19 @@ accurately.
 As with \term{Helios}, votes are decrypted after exiting the mixnet and can tallied in a
 trivially-verifiable manner.
 
-\subsection{Coercion prevention}
+\subsection{Ballot secrecy}
 
-\term{Scantegrity} prevents coercion via the manner it uses to encrypt ballots. Once cast, a ballot's
-ciphertext is \emph{always public}. A voter can claim that she voted in a particular manner, but
-without exposure of the data maintained in Table P -- \term{Scantegrity}'s secret -- the voter has no
-way to prove to a third party that the claim is true.
+\term{Scantegrity} resists coercion via the manner it uses to encrypt ballots. Firstly, assuming
+physical security, without access to Table P or Table R, one cannot predict the confirmation codes
+that will be produced by casting a ballot in a particular manner. Secondly, without exposure of the
+data maintained in Table P or Table R, a voter has no way to prove to a third party that she has
+voted as claimed.
 
 An important point regarding \term{Scantegrity} is that it also relies on a \emph{physical property} -- the
-invisible ink used when printing confirmation code bubbles -- to combat vote coercion (i.e., no
-one can force a voter to produce a particular receipt, and no one can take a receipt and ably pay
-the person for having voted a certain way). This is akin to keeping Table P a secret: the ballots
-together \emph{are} Table P, and using special ink allows the codes to be printed without making it
-easy for a ballot handler to simple read Table P from the ballots prior to the election.
+invisible ink used when printing confirmation code bubbles -- to combat vote coercion. This is akin
+to keeping Table P a secret: the ballots together \emph{are} Table P, and using special ink allows
+the codes to be printed without making it easy for a ballot handler to simple read Table P from the
+ballots prior to the election.
 
 \term{\pv{}} acknowledges that it generally only provides receipt-freeness and thus voter privacy, but fails to
 truly resist coercion. It offers receipt-freeness, despite providing voters with a receipt, because a voter
